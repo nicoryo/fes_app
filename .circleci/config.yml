@@ -1,0 +1,50 @@
+version: 2.1
+
+orbs:
+    ruby: circleci/ruby@1.1.0
+
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.6.3-node-browsers
+        environment:
+          BUNDLER_VERSION: 2.1.4
+    steps:
+      - checkout
+      - ruby/install-deps
+
+  test:
+    parallelism: 3
+      docker:
+        - image: circleci/ruby:2.6.3-node-browsers
+          environment:
+            DB_HOST: 127.0.0.1
+            RAILS_ENV: test
+            BUNDLER_VERSION: 2.1.4
+        - image: circleci/mysql:8.0.21
+          command: --default-authentication-plugin=mysql_native_password
+          environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: true
+            MYSQL_ROOT_HOST: '%'
+      steps:
+        - checkout
+        - ruby/install-deps
+        - run: mv config/database.yml.ci config/database.yml
+        - run:
+            name: データベースの起動を待機
+            command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
+        - run:
+            name: データベースのセットアップ
+            command: |
+              bundle exec rake db:create
+              bundle exec rake db:schema:load
+        - run:
+            name: テストの実行
+            command: bundle exec rspec
+
+
+workflows:
+  version: 2
+  workflows:
+    jobs:
+      - test
