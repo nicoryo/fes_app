@@ -30,6 +30,14 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 # add rubygems
 gem 'rspec-rails'
+gem 'devise'
+gem 'rspotify', '~> 2.9', '>= 2.9.1'
+gem 'dotenv-rails'
+gem 'gon', '~> 6.3', '>= 6.3.2'
+gem 'kaminari'
+gem 'carrierwave'
+gem 'rmagick'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,0 +1,37 @@
+<h2>アーティスト一覧</h2>
+
+<% @artist.each do |a| %>
+  <p><a href="/artists/<%= a.id %>"><%= a.name %></a></p>
+  <hr>
+<% end %>
+
+
+<h3>アーティスト名で検索</h3>
+  <%= form_with url: artists_path, method: :get, local: true do |form| %>
+  <%= form.text_field :search %>
+  <%= form.submit 'アーティスト名検索', name: nil %>
+  <% end %>
+
+<%# <%= render partial: 'list', locals: { searchartist: @searchartist } %> %>
+<h1>検索結果</h1>
+<div>
+  <% if @searchartists.present? %>
+    <% @searchartists.each do |searchartist| %>
+      <div>
+        <h3><%= searchartist.name %></h3>
+        <%= artname = searchartist.name %>
+        <%= artname %>
+         <%# <%= render partial: 'new', locals: { art: @art } %> %>
+
+          <% if searchartist.images.any?%>
+            <%image = searchartist.images[1]%>
+            <%= image_tag(image["url"])%>
+          <%else%>
+            <%= image_tag("default.jpg")%>
+          <%end%>
+      </div>
+    <%end%>
+  <%end%>
+
+  <%= link_to "ユーザーを登録する", new_artist_path %>
+  <%= link_to "アーティスト一覧に戻る", artists_path %>

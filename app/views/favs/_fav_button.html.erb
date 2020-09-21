@@ -1,0 +1,8 @@
+<div id="fav_form">
+  <% unless current_user.already_faved?(@user) %>
+    <%= form_for(current_user.artists.build) do |f| %>
+      <%= f.label :"お気に入り登録" %>
+      <%= f.text_field :name, placeholder: "Favorites" %>
+      <%= f.submit "Registrate" %>
+    <% end %>
+</div>
