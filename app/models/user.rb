@@ -8,16 +8,31 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :artists, dependent: :destroy
-  has_many :favs,    dependent: :destroy
-  has_many :artists, through: :favs
+  has_many :favs
+  has_many :favorite_artists, through: :favs, source: :artist
 
   has_many :active_relationships,class_name:  "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "following_id", dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :following, through: :active_relationships, source: :following
 
+  def registrating(artist)
+    unless self.favs.include?(artist)
+      self.favs.find_or_create_by(artist_id: artist.id)
+    end
+  end
+
   def already_faved?(artist)
-    self.favs.exists?(artist_id: artist.id)
+    self.favorite_artists.include?(artist)
+  end
+
+  # def adding?(tag)
+  #   self.adding_tags.include?(tag)
+  # end
+
+  def remove(artist)
+    unregistrate = self.favs.find_by(artist: artist.id)
+    unregistrate.destroy if unregistrate
   end
 
   # ユーザーをフォローする

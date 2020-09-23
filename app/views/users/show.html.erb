@@ -4,24 +4,30 @@
 <%= image_tag @user.image_url if @user.image? %>
 
 <% if @user.id == current_user.id %>
-  <% @user.artists.each do |artist| %>
-  <a href="/artists/<%= artist.id %>"><%= artist.artist_name %></a>
+  <h3>いいねしているアーティスト</h3>
+  <% @userFavorites.each do |artist| %>
+  <a href="/artists/<%= artist.id %>"><%= artist.name %></a>
   <hr>
   <% end %>
 
-  <h3>いいねしているアーティスト</h3>
-  <% @user.faved_artists.each do |artist| %>
-    <%= artist.user.email %>
-    <%= artist.content %>
+  <h5>follower</h5>
+  <% @userFollwers.each do |user| %>
+    <p><strong><a href="/users/<%= user.id %>"><%= user.name %>さん</a></strong></p>
   <% end %>
 
 
+  <h5>following</h5>
+  <% @userFollowings.each do |user| %>
+    <p><strong><a href="/users/<%= user.id %>"><%= user.name %>さん</a></strong></p>
+  <% end %>
+  <% @user.following.count %>
 
 <% else %>
-  <% @user.artists.each do |artist| %>
-  <a href="/artists/<%= artist.id %>"><%= artist.artist_name %></a>
-  <hr>
-  <% end %>
+  <%# <% @user.artists.each do |artist| %> %>
+  <%# <a href="/artists/<%= artist.id %>">
+    <%# <%= artist.artist_name %></a> %> %>
+  <!-- <hr> -->
+  <%# <% end %> %>
   <% unless current_user.following?(@user) %>
 
 　   <%= render 'relationships/follow_button', user: @user %>

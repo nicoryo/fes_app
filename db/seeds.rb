@@ -21,18 +21,14 @@ User.create!(
   ]
 )
 
-Artist.create!(
-  [
-    {
-      name: 'Bump of checken',
-      icon: open("./db/fixtures/bump_of_chicken.jpeg")
-    },
-    {
-      name: 'Radwimps',
-      icon: open("./db/fixtures/radwimps.jpeg")
-    }
-  ]
-)
+# Artist.create!(
+#   [
+#     {
+#       id: '0hSFeqPehe7FtCNWuQ6Bsy',
+#       name: 'Bump of checken',
+#       icon: open("./db/fixtures/bump_of_chicken.jpeg")
+#     }
+# )
 
 # 9.times do |n|
 #   User.create!(

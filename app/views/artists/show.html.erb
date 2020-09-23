@@ -1,6 +1,15 @@
-<h1>Artists#show</h1>
 
-<h2><%= @artist.name %></h2>
-<%= image_tag @artist.icon_url  %>
-<%= link_to "アーティスト一覧に戻る", artists_path %>
-<%# <%= render 'favs/fav_button', user: @user %> %>
+
+<h2><%= @artist.name %></h2></ br>
+<p><% @artist.id %></p>
+<p><% @artist.icon %></p>
+<% if @artist.icon.nil?%>
+  <%= image_tag @artist.image["icon"]%>
+<%else%>
+  <%= image_tag("default.jpg")%>
+<%end%>
+
+<%= render 'favs/fav_button' %>
+
+<p><%= link_to "アーティスト一覧に戻る", artists_path %></p>
+<p><%= link_to "ユーザー一覧に戻る", users_path %></p>

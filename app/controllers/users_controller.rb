@@ -8,6 +8,9 @@ class UsersController < ApplicationController
 
   def show
     @user=User.find(params[:id])
+    @userFollowings = @user.following
+    @userFollwers = @user.followers
+    @userFavorites = @user.favorite_artists
     @currentUserEntry=Entry.where(user_id: current_user.id)
     @userEntry=Entry.where(user_id: @user.id)
     if @user.id == current_user.id
@@ -41,7 +44,14 @@ class UsersController < ApplicationController
      render action: :edit
      end
   end
-
+  # def add_tag
+  #   @user = User.find(params[:id])
+  #   @adding = @user.adding_tags
+  # end
+  def favorite_artist
+    @user = User.find(params[:id])
+    @users = @user.favorite_artists
+  end
 
   def following
     @title = "フォロー"
@@ -68,6 +78,7 @@ class UsersController < ApplicationController
   #ストロングパラメーター
     def user_params
       params.require(:user).permit(:name, :email, :birthday, :sex,
-                                   :introduction, :image)
+                                   :introduction, :image,
+                                     { artist_ids: [] })
     end
 end

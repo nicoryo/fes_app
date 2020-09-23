@@ -1,12 +1,17 @@
 class FavsController < ApplicationController
+
   def create
-    @fav = current_user.favs.create(artist_id: params[:artist_id])
+    artist = Artist.find(params[:artist_id])
+    current_user.registrating(artist)
+    flash[:success] = 'おきにしました'
     redirect_back(fallback_location: root_path)
   end
 
   def destroy
-    @fav = fav.find_by(artist_id: params[:artist_id], user_id: current_user.id)
-    @fav.destroy
+    artist = Artist.find(params[:artist_id])
+    current_user.remove(artist)
+    flash[:success] = 'おきにをやめました'
     redirect_back(fallback_location: root_path)
   end
+
 end

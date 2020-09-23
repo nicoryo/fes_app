@@ -13,6 +13,39 @@
       <%= f.hidden_field :image_cache %>
     </div>
 
-      <%= f.submit "Create my account", class: "btn btn-primary" %>
+      <%= f.submit "Create new artist", class: "btn btn-primary" %>
     <% end %>
-  </div>
+
+<h3>アーティスト名で検索 </h3>
+  <%= form_with url: new_artist_path, method: :get, local: true do |form| %>
+    <%= form.text_field :search %>
+    <%= form.submit 'アーティスト名検索', name: nil %>
+  <% end %>
+<h1>検索結果</h1>
+<div>
+<% if @searchartists.present? %>
+  <% @searchartists.each do |searchartist| %>
+
+    <div>
+      <h3><%= searchartist.name %></h3>
+
+      <% if searchartist.images.any? %>
+        <%= image_tag(searchartist.images[2]["url"]) %>
+      <%else%>
+        <%= image_tag("default.jpg") %>
+      <%end%>
+    </div>
+    <%= form_with(model: @artist, local: true) do |f| %>
+      <%= f.hidden_field :id, value: searchartist.id %>
+      <%= f.hidden_field :name, value: searchartist.name %>
+      <% if searchartist.images.any?%>
+        <% f.hidden_field :icon, value: searchartist.images[2]["url"]%></ %>
+      <%else%>
+      <%end%>
+      <%= f.submit "Create new artist", class: "btn btn-primary" %>
+    <% end %>
+
+  <%end%>
+<%end%>
+</div>
+<p><%= link_to "アーティスト一覧に戻る", artists_path %></p>

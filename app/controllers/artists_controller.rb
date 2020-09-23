@@ -1,4 +1,5 @@
 class ArtistsController < ApplicationController
+  # before_create :set_id
   require 'rspotify'
   RSpotify.authenticate("e731c7b014434f0a8171fbf6a43f4c65", "1ae836c733a14bf990063b1f70ca968c")
 
@@ -7,6 +8,7 @@ class ArtistsController < ApplicationController
     if params[:search].present?
       @searchartists = RSpotify::Artist.search(params[:search])
     end
+
   end
 
   def create
@@ -25,7 +27,6 @@ class ArtistsController < ApplicationController
     if params[:search].present?
       @searchartists = RSpotify::Artist.search(params[:search])
     end
-    # @artists = Artist.all.page(params[:page])
   end
 
   def show
@@ -44,6 +45,18 @@ class ArtistsController < ApplicationController
     end
     unless @artist.save
     render action: :edit
+    end
+  end
+
+  def create_artist
+    if params[:search].present?
+      @searchartists = RSpotify::Artist.search(params[:search])
+    end
+    @artist = @searchartists
+    if params[:artist]
+      @artist = Artist.create(
+        name: artist["name"]
+      )
     end
   end
 

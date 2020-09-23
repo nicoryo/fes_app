@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2020_09_21_063002) do
 
-  create_table "artists", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "artists", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "icon"
     t.datetime "created_at", precision: 6, null: false
@@ -29,12 +29,11 @@ ActiveRecord::Schema.define(version: 2020_09_21_063002) do
   end
 
   create_table "favs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "artist_id", null: false
+    t.string "artist_id", null: false
     t.bigint "user_id", null: false
     t.integer "level"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["artist_id"], name: "index_favs_on_artist_id"
     t.index ["user_id"], name: "index_favs_on_user_id"
   end
 
@@ -83,7 +82,6 @@ ActiveRecord::Schema.define(version: 2020_09_21_063002) do
 
   add_foreign_key "entries", "rooms"
   add_foreign_key "entries", "users"
-  add_foreign_key "favs", "artists"
   add_foreign_key "favs", "users"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
