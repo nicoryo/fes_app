@@ -1,27 +1,11 @@
-<% provide(:title, 'Sign up') %>
-<h1>Sign up</h1>
-
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_with(model: @artist, local: true) do |f| %>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-
-    <div class="field">
-      <%= f.label :icon %>
-      <%= f.file_field :icon %>
-      <%= f.hidden_field :image_cache %>
-    </div>
-
-      <%= f.submit "Create new artist", class: "btn btn-primary" %>
-    <% end %>
+<% provide(:title, 'New Artist') %>
 
 <h3>アーティスト名で検索 </h3>
   <%= form_with url: new_artist_path, method: :get, local: true do |form| %>
     <%= form.text_field :search %>
     <%= form.submit 'アーティスト名検索', name: nil %>
   <% end %>
-<h1>検索結果</h1>
+<h3>検索結果</h3>
 <div>
 <% if @searchartists.present? %>
   <% @searchartists.each do |searchartist| %>
@@ -48,4 +32,3 @@
   <%end%>
 <%end%>
 </div>
-<p><%= link_to "アーティスト一覧に戻る", artists_path %></p>

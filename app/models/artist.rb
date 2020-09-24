@@ -1,6 +1,7 @@
 class Artist < ApplicationRecord
   has_many :favs,    dependent: :destroy
   has_many :users, through: :favs, source: :user
+  
 
   mount_uploader :icon, ImageUploader
 

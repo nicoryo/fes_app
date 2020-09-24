@@ -1,0 +1,9 @@
+<% if user_signed_in? %>
+  <h2>Hello <%= current_user.name %>さん</h2>
+
+  <%= link_to "ログアウト", destroy_user_session_path, :method => :delete %>
+<% else %>
+  <div><%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary" %></div>
+  <br><br>
+  <div><%= link_to "Log in", new_user_session_path, class: "btn btn-primary" %></div>
+<% end %>

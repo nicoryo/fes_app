@@ -31,7 +31,8 @@ class ArtistsController < ApplicationController
 
   def show
     @artist = Artist.find(params[:id])
-    @fav = Fav.new
+    @users  = User.all
+    @user_Favorited = @artist.users
   end
 
   def edit

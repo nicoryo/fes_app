@@ -1,4 +1,4 @@
-
+<% provide(:title, "Artist") %>
 
 <h2><%= @artist.name %></h2></ br>
 <p><% @artist.id %></p>
@@ -11,5 +11,12 @@
 
 <%= render 'favs/fav_button' %>
 
+<% if user_signed_in? %>
+  <h5>follower</h5>
+    <% @user_Favorited.each do |user| %>
+    <a href="/user/<%= user.id %>"><%= user.name %></a>
+  <hr>
+  <% end %>
+<% end %>
 <p><%= link_to "アーティスト一覧に戻る", artists_path %></p>
 <p><%= link_to "ユーザー一覧に戻る", users_path %></p>

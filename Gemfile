@@ -37,6 +37,7 @@ gem 'gon', '~> 6.3', '>= 6.3.2'
 gem 'kaminari'
 gem 'carrierwave'
 gem 'rmagick'
+gem 'bootstrap-sass'
 
 
 group :development, :test do

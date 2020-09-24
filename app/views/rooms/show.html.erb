@@ -1,17 +1,37 @@
-<h1>DM</h1>
+<% provide(:title, "Chat") %>
+
 
 <h4>参加者</h4>
 <% @entries.each do |e| %>
-  <h5><strong><a href="/users/<%= e.user.id %>"><%= e.user.email%>さん</a></strong></h5>
+  <h5><strong><a href="/users/<%= e.user.id %>"><%= e.user.name%>さん</a></strong></h5>
 <% end %>
 
 <hr>
 <% if @messages.present? %>
   <% @messages.each do |m| %>
-    <strong><%= m.content %></strong>
-    <small>by <strong><a href="/users/<%= m.user_id %>"><%= m.user.email %>さん</a></strong></small>
-    <hr>
+    <% if user = current_user %>
+
+    <div class="balloon_r">
+      <div class="faceicon">
+        <%= image_tag("default.jpg")%>
+        <p><small>by <strong><a href="/users/<%= m.user_id %>"><%= m.user.name %></a></strong></small></p>
+      </div>
+      <p class="says">
+        <strong><%= m.content %></strong></p>
+    </div>
+
+  <% else %>
+  <div class="balloon_l">
+    <div class="faceicon">
+      <%= image_tag("default.jpg")%>
+      <p><small>by <strong><a href="/users/<%= m.user_id %>"><%= m.user.name %></a></strong></small></p>
+    </div>
+    <p class="says">
+      <strong><%= m.content %></strong></p>
+
+  </div>
   <% end %>
+<% end %>
 <% else %>
   <h3 class="text-center">メッセージはまだありません</h3>
 <% end %>
@@ -22,5 +42,3 @@
   <br>
   <%= f.submit "投稿する" %>
 <% end %>
-
-<%= link_to "ユーザー一覧に戻る", users_path %>
