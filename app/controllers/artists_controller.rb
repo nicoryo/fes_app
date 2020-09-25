@@ -24,6 +24,7 @@ class ArtistsController < ApplicationController
 
   def index
     @artist = Artist.all
+    @users  = User.all
     if params[:search].present?
       @searchartists = RSpotify::Artist.search(params[:search])
     end
@@ -31,8 +32,7 @@ class ArtistsController < ApplicationController
 
   def show
     @artist = Artist.find(params[:id])
-    @users  = User.all
-    @user_Favorited = @artist.users
+    @user_Favorited = @artist.favorited_users
   end
 
   def edit
@@ -60,7 +60,6 @@ class ArtistsController < ApplicationController
       )
     end
   end
-
 
   private
     def artist_params

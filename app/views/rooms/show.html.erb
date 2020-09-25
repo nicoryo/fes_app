@@ -9,27 +9,32 @@
 <hr>
 <% if @messages.present? %>
   <% @messages.each do |m| %>
-    <% if user = current_user %>
-
-    <div class="balloon_r">
+    <% if m.user_id == current_user.id %>
+      <div class="balloon_r">
+        <div class="faceicon">
+          <% if current_user.image? %>
+            <%= image_tag current_user.image_url %>
+          <% else %>
+            <%= image_tag("default.jpg") %>
+          <% end %>
+          <p><small>by <strong><a href="/users/<%= m.user_id %>"><%= m.user.name %></a></strong></small></p>
+        </div>
+        <p class="says">
+          <strong><%= m.content %></strong></p>
+      </div>
+  <% else %>
+    <div class="balloon_l">
       <div class="faceicon">
-        <%= image_tag("default.jpg")%>
+        <% if m.user.image? %>
+          <%= image_tag m.user.image_url %>
+        <% else %>
+          <%= image_tag("default.jpg") %>
+        <% end %>
         <p><small>by <strong><a href="/users/<%= m.user_id %>"><%= m.user.name %></a></strong></small></p>
       </div>
       <p class="says">
         <strong><%= m.content %></strong></p>
     </div>
-
-  <% else %>
-  <div class="balloon_l">
-    <div class="faceicon">
-      <%= image_tag("default.jpg")%>
-      <p><small>by <strong><a href="/users/<%= m.user_id %>"><%= m.user.name %></a></strong></small></p>
-    </div>
-    <p class="says">
-      <strong><%= m.content %></strong></p>
-
-  </div>
   <% end %>
 <% end %>
 <% else %>

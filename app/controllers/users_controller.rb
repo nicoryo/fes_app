@@ -1,18 +1,18 @@
 class UsersController < ApplicationController
-
   before_action :authenticate_user!, :only => [:show]
+  
   def index
-    @users=User.all
+    @users   = User.all
     @artists = Artist.all
   end
 
   def show
-    @user=User.find(params[:id])
-    @userFollowings = @user.following
-    @userFollwers = @user.followers
-    @userFavorites = @user.favorite_artists
-    @currentUserEntry=Entry.where(user_id: current_user.id)
-    @userEntry=Entry.where(user_id: @user.id)
+    @user = User.find(params[:id])
+    @userFollowings   = @user.following
+    @userFollwers     = @user.followers
+    @userFavorites    = @user.favorite_artists
+    @currentUserEntry = Entry.where(user_id: current_user.id)
+    @userEntry        = Entry.where(user_id: @user.id)
     if @user.id == current_user.id
     else
       @currentUserEntry.each do |cu|
@@ -32,11 +32,11 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user=User.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   def update
-     @user=User.find(params[:id])
+     @user  = User.find(params[:id])
      if @user.id == current_user.id
          @user.update(user_params)
      end
@@ -54,16 +54,16 @@ class UsersController < ApplicationController
   end
 
   def following
-    @title = "フォロー"
-    @user = User.find(params[:id])
-    @users = @user.followings
+    @title  = "フォロー"
+    @user   = User.find(params[:id])
+    @users  = @user.followings
     render 'show_follow'
   end
 
   def followers
-    @title = "フォロワー"
-    @user = User.find(params[:id])
-    @users = @user.followers
+    @title  = "フォロワー"
+    @user   = User.find(params[:id])
+    @users  = @user.followers
     render 'show_follow'
   end
 

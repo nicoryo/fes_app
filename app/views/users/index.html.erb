@@ -6,20 +6,19 @@
 
 
 <% if user_signed_in? %>
-<h2>Hello <%= current_user.email %></h2>
-  <% @users.each do |u| %>
-  <p><a href="/users/<%= u.id %>"><%= u.email %>さん</a></p>
-  <hr>
-  <% end %>
-  <% @artists.each do |a| %>
-    <p><a href="/artists/<%= a.id %>"><%= a.name %><%= a.icon %></a></p>
-    <hr>
-  <% end %>
-  <%= link_to "ログアウト", destroy_user_session_path, :method => :delete %>
+  <h2>Hello <%= current_user.email %></h2>
+    <% @users.each do |u| %>
+      <p><a href="/users/<%= u.id %>"><%= u.email %>さん</a></p>
+      <hr>
+    <% end %>
+    <% @artists.each do |a| %>
+      <p><a href="/artists/<%= a.id %>"><%= a.name %></a></p>
+      <hr>
+    <% end %>
+    <%= link_to "ログアウト", destroy_user_session_path, :method => :delete %>
 <% else %>
   <div><%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary" %></div>
-  <br><br>
+  <br>
+  <br>
   <div><%= link_to "Log in", new_user_session_path, class: "btn btn-primary" %></div>
 <% end %>
-
-<p>Find me in app/views/users/index.html.erb</p>

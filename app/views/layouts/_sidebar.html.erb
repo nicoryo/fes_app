@@ -1,7 +1,15 @@
 <% if user_signed_in? %>
   <h2>Hello <%= current_user.name %>さん</h2>
-
-  <%= link_to "ログアウト", destroy_user_session_path, :method => :delete %>
+  <div class="user_icon">
+    <% if current_user.image? %>
+      <%= image_tag current_user.image_url %>
+    <% else %>
+      <%= image_tag("default.jpg") %>
+    <% end %>
+  </div>
+  <br>
+  <%= link_to "<ログアウト>", destroy_user_session_path, :method => :delete %>
+  <%= link_to "<プロフィール変更>", edit_user_registration_path %><hr>
 <% else %>
   <div><%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary" %></div>
   <br><br>

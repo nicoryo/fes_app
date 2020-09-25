@@ -1,7 +1,16 @@
 <% provide(:title, "Artist") %>
 
-<p><%= link_to "アーティストを登録する", new_artist_path %></p>
+<p><%= link_to "新しくアーティストを登録する", new_artist_path %></p>
 <% @artist.each do |a| %>
-  <p><a href="/artists/<%= a.id %>"><%= a.name %></a></p>
+  <div class="artist_icon_for_index">
+    <p><% a.icon %></p>
+      <% if a.icon.nil?%>
+        <%= image_tag a.image_icon%>
+      <%else%>
+        <%= image_tag("default.jpg")%>
+      <%end%>
+
+  <a href="/artists/<%= a.id %>"><%= a.name %></a>
+  </div>
   <hr>
 <% end %>

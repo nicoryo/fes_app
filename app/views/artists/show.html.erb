@@ -1,22 +1,21 @@
 <% provide(:title, "Artist") %>
 
-<h2><%= @artist.name %></h2></ br>
-<p><% @artist.id %></p>
-<p><% @artist.icon %></p>
-<% if @artist.icon.nil?%>
-  <%= image_tag @artist.image["icon"]%>
-<%else%>
-  <%= image_tag("default.jpg")%>
-<%end%>
+<h2><%= @artist.name %></h2></br>
 
+<div class="artist_icon">
+  <p><% @artist.icon %></p>
+    <% if @artist.icon.nil?%>
+      <%= image_tag @artist.image_icon%>
+    <%else%>
+      <%= image_tag("default.jpg")%>
+    <%end%>
+</div>
 <%= render 'favs/fav_button' %>
 
 <% if user_signed_in? %>
-  <h5>follower</h5>
+  <h5>follower [<%= @user_Favorited.count %>]</h5>
     <% @user_Favorited.each do |user| %>
-    <a href="/user/<%= user.id %>"><%= user.name %></a>
-  <hr>
-  <% end %>
+      <a href="/users/<%= user.id %>"><%= user.name %></a>
+      <hr>
+    <% end %>
 <% end %>
-<p><%= link_to "アーティスト一覧に戻る", artists_path %></p>
-<p><%= link_to "ユーザー一覧に戻る", users_path %></p>

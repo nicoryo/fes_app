@@ -37,6 +37,12 @@
     <%= f.hidden_field :image_cache %>
   </div>
 
+  <div class="field">
+    <%= f.label :introduction %><br />
+    <%= f.text_field :introduction, autocomplete: "introduction" %>
+  </div>
+
+
   <div class="actions">
     <%= f.submit "Update" %>
   </div>

@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
 
-  get 'users/index'
-  get 'users/show'
-  get 'artists/show'
+  # get 'users/index'
+  # get 'users/show'
+  # get 'artists/show'
   devise_for :users
 
-  resources :users
+  resources :users, only: [:index, :show, :new, :create, :destroy, :edit, :update] do
+    resources :favs, only: [:create, :destroy]
+  end
   root "users#index"
   resources :messages, :only => [:create]
   resources :rooms, :only => [:create, :show, :index]
