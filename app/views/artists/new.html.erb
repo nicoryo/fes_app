@@ -7,14 +7,14 @@
   <% end %>
 <h3>検索結果</h3>
 <div>
-<% if @searchartists.present? %>
+<% if @searchartists.nil? %>
+<% else %>
   <% @searchartists.each do |searchartist| %>
-
     <div>
       <h3><%= searchartist.name %></h3>
-
       <% if searchartist.images.any? %>
         <%= image_tag(searchartist.images[2]["url"]) %>
+        <% image_url = open(searchartist.images[2]["url"]) %>
       <%else%>
         <%= image_tag("default.jpg") %>
       <%end%>
@@ -22,10 +22,10 @@
     <%= form_with(model: @artist, local: true) do |f| %>
       <%= f.hidden_field :id, value: searchartist.id %>
       <%= f.hidden_field :name, value: searchartist.name %>
-      <% if searchartist.images.any?%>
-        <% f.hidden_field :icon, value: searchartist.images[2]["url"]%></ %>
-      <%else%>
-      <%end%>
+        <% if searchartist.images.present?%>
+          <% image_url = open(searchartist.images[2]["url"]) %>
+            <%= f.hidden_field :icon, value: searchartist.images[2]["url"] %>
+        <%end%>
       <%= f.submit "Create new artist", class: "btn btn-primary" %>
     <% end %>
 

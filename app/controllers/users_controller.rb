@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
-  before_action :authenticate_user!, :only => [:show]
+  before_action :authenticate_user!, only: [:show]
   
   def index
     @users   = User.all
@@ -8,16 +10,16 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @userFollowings   = @user.following
-    @userFollwers     = @user.followers
-    @userFavorites    = @user.favorite_artists
+    @userFollowings = @user.following
+    @userFollwers = @user.followers
+    @userFavorites = @user.favorite_artists
     @currentUserEntry = Entry.where(user_id: current_user.id)
     @userEntry        = Entry.where(user_id: @user.id)
     if @user.id == current_user.id
     else
       @currentUserEntry.each do |cu|
         @userEntry.each do |u|
-          if cu.room_id == u.room_id then
+          if cu.room_id == u.room_id
             @isRoom = true
             @roomId = cu.room_id
           end
@@ -36,14 +38,11 @@ class UsersController < ApplicationController
   end
 
   def update
-     @user  = User.find(params[:id])
-     if @user.id == current_user.id
-         @user.update(user_params)
-     end
-     unless @user.save
-     render action: :edit
-     end
+    @user = User.find(params[:id])
+    @user.update(user_params) if @user.id == current_user.id
+    render action: :edit unless @user.save
   end
+
   # def add_tag
   #   @user = User.find(params[:id])
   #   @adding = @user.adding_tags
@@ -54,14 +53,14 @@ class UsersController < ApplicationController
   end
 
   def following
-    @title  = "フォロー"
+    @title  = 'フォロー'
     @user   = User.find(params[:id])
     @users  = @user.followings
     render 'show_follow'
   end
 
   def followers
-    @title  = "フォロワー"
+    @title  = 'フォロワー'
     @user   = User.find(params[:id])
     @users  = @user.followers
     render 'show_follow'
@@ -69,16 +68,17 @@ class UsersController < ApplicationController
 
   def maching?
     unless current_user.following.include?(@user) && @user.following.include?(current_user)
-    flash[:danger] = "相互フォローではありません"
-    redirect_to root_path
+      flash[:danger] = '相互フォローではありません'
+      redirect_to root_path
     end
   end
 
   private
-  #ストロングパラメーター
-    def user_params
-      params.require(:user).permit(:name, :email, :birthday, :sex,
-                                   :introduction, :image,
-                                     { artist_ids: [] })
-    end
+
+  # ストロングパラメーター
+  def user_params
+    params.require(:user).permit(:name, :email, :birthday, :sex,
+                                 :introduction, :image,
+                                 { artist_ids: [] })
+  end
 end

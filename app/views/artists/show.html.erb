@@ -3,12 +3,11 @@
 <h2><%= @artist.name %></h2></br>
 
 <div class="artist_icon">
-  <p><% @artist.icon %></p>
-    <% if @artist.icon.nil?%>
-      <%= image_tag @artist.image_icon%>
-    <%else%>
-      <%= image_tag("default.jpg")%>
-    <%end%>
+  <% if @artist.icon.nil?%>
+    <%= image_tag("default.jpg")%>
+  <%else%>
+    <%= image_tag (@artist.icon)%>
+  <%end%>
 </div>
 <%= render 'favs/fav_button' %>
 

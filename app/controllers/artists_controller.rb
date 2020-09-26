@@ -1,33 +1,31 @@
+# frozen_string_literal: true
+
 class ArtistsController < ApplicationController
   # before_create :set_id
   require 'rspotify'
-  RSpotify.authenticate("e731c7b014434f0a8171fbf6a43f4c65", "1ae836c733a14bf990063b1f70ca968c")
+  require 'open-uri'
+  RSpotify.authenticate(ENV['CLIENT_KEY'], ENV['CLIENT_SECRET_KEY'])
 
   def new
     @artist = Artist.new
-    if params[:search].present?
-      @searchartists = RSpotify::Artist.search(params[:search])
-    end
-
+    @searchartists = RSpotify::Artist.search(params[:search]) if params[:search].present?
   end
 
   def create
-    @artist =  Artist.new(artist_params)
+    @artist = Artist.create(artist_params)
     if @artist.save
-      flash[:success] = "登録しました"
+      flash[:success] = '登録しました'
       redirect_to @artist
     else
-      flash[:danger] = "登録できませんでした"
-      redirect_to @new
+      flash[:danger] = '登録できませんでした'
+      redirect_to root_path
     end
   end
 
   def index
     @artist = Artist.all
     @users  = User.all
-    if params[:search].present?
-      @searchartists = RSpotify::Artist.search(params[:search])
-    end
+    @searchartists = RSpotify::Artist.search(params[:search]) if params[:search].present?
   end
 
   def show
@@ -41,28 +39,13 @@ class ArtistsController < ApplicationController
 
   def update
     @artist = Artist.find(params[:id])
-    if @artist_id == current_artist.id
-       @artist.update(artist_params)
-    end
-    unless @artist.save
-    render action: :edit
-    end
-  end
-
-  def create_artist
-    if params[:search].present?
-      @searchartists = RSpotify::Artist.search(params[:search])
-    end
-    @artist = @searchartists
-    if params[:artist]
-      @artist = Artist.create(
-        name: artist["name"]
-      )
-    end
+    @artist.update(artist_params) if @artist_id == current_artist.id
+    render action: :edit unless @artist.save
   end
 
   private
-    def artist_params
-      params.require(:artist).permit(:id, :name, :icon)
-    end
+
+  def artist_params
+    params.require(:artist).permit(:id, :icon, :name)
+  end
 end

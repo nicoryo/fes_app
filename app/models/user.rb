@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   mount_uploader :image, ImageUploader
 
@@ -11,19 +13,17 @@ class User < ApplicationRecord
   has_many :favs
   has_many :favorite_artists, through: :favs, source: :artist
 
-  has_many :active_relationships,class_name:  "Relationship", foreign_key: "follower_id", dependent: :destroy
-  has_many :passive_relationships, class_name: "Relationship", foreign_key: "following_id", dependent: :destroy
+  has_many :active_relationships, class_name:  'Relationship', foreign_key: 'follower_id', dependent: :destroy
+  has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'following_id', dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :following, through: :active_relationships, source: :following
 
   def registrating(artist)
-    unless self.favs.include?(artist)
-      self.favs.find_or_create_by(artist_id: artist.id)
-    end
+    favs.find_or_create_by(artist_id: artist.id) unless favs.include?(artist)
   end
 
   def already_faved?(artist)
-    self.favorite_artists.include?(artist)
+    favorite_artists.include?(artist)
   end
 
   # def adding?(tag)
@@ -31,8 +31,8 @@ class User < ApplicationRecord
   # end
 
   def remove(artist)
-    unregistrate = self.favs.find_by(artist: artist.id)
-    unregistrate.destroy if unregistrate
+    unregistrate = favs.find_by(artist: artist.id)
+    unregistrate&.destroy
   end
 
   # ユーザーをフォローする
@@ -51,5 +51,4 @@ class User < ApplicationRecord
   def unfollow!(other_user)
     active_relationships.find_by(following_id: other_user.id).destroy
   end
-
 end

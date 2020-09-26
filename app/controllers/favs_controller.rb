@@ -1,5 +1,6 @@
-class FavsController < ApplicationController
+# frozen_string_literal: true
 
+class FavsController < ApplicationController
   def create
     artist = Artist.find(params[:artist_id])
     current_user.registrating(artist)
@@ -13,5 +14,4 @@ class FavsController < ApplicationController
     flash[:success] = 'おきにをやめました'
     redirect_back(fallback_location: root_path)
   end
-
 end

@@ -5,9 +5,9 @@
   <div class="artist_icon_for_index">
     <p><% a.icon %></p>
       <% if a.icon.nil?%>
-        <%= image_tag a.image_icon%>
-      <%else%>
         <%= image_tag("default.jpg")%>
+      <%else%>
+        <%= image_tag (a.icon)%>
       <%end%>
 
   <a href="/artists/<%= a.id %>"><%= a.name %></a>

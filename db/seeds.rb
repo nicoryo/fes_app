@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 User.create!(
   [
     {
@@ -5,18 +7,18 @@ User.create!(
       name: 'Ryoga',
       sex: '0',
       birthday: '1991-08-31',
-      password:  "password",
-      password_confirmation: "password",
-      introduction: "So long Boy"
+      password: 'password',
+      password_confirmation: 'password',
+      introduction: 'So long Boy'
     },
     {
       email: 'ayaka@example.co.jp',
       name: 'Ayaka',
       sex: '1',
       birthday: '1991-05-28',
-      password:  "password",
-      password_confirmation: "password",
-      introduction: "Super Woman"
+      password: 'password',
+      password_confirmation: 'password',
+      introduction: 'Super Woman'
     }
   ]
 )
