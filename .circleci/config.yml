@@ -24,8 +24,11 @@ jobs:
       - image: circleci/mysql:8.0.21
         command: --default-authentication-plugin=mysql_native_password
         environment:
-          MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-          MYSQL_ROOT_HOST: '%'
+          MYSQL_USER: root
+          MYSQL_DB: fes_app_test
+
+          # MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+          # MYSQL_ROOT_HOST: '%'
     steps:
       - checkout
       - ruby/install-deps
