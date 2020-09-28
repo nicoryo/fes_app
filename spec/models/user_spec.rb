@@ -29,6 +29,19 @@ RSpec.describe User, type: :model do
           expect(user.introduction.nil?).to eq(false)
         end
       end
+
+      context "nameがnillの場合" do
+        it "failを返す" do
+          @user = FactoryBot.build(:user, name:"")
+          expect(@user).to be_invalid
+        end
+      end
+      context "emailがnillの場合" do
+        it "failを返す" do
+          @user = FactoryBot.build(:user, email:"")
+          expect(@user).to be_invalid
+        end
+      end
   end
 
   describe 'nameとemailの長さの検証に対するテスト' do
@@ -56,6 +69,7 @@ RSpec.describe User, type: :model do
     end
     it "emailの重複を拒否を正しく機能しているか" do
       duplicate_user = @user.dup
+      duplicate_user.email = @user.email.upcase
       @user.save
       expect(duplicate_user).to be_invalid
     end

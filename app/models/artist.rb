@@ -5,7 +5,8 @@ class Artist < ApplicationRecord
   has_many :favorited_users, through: :favs, source: :user
   has_many :users, dependent: :destroy
 
-  validates :name,  presence: true
+  validates :id,    uniqueness: { case_sensitive: false }
+  validates :name,  presence: true  ,uniqueness: { case_sensitive: false }
   validates :icon,  presence: true
 
   # mount_uploader :icon, ImageUploader
