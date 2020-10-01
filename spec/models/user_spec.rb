@@ -77,11 +77,11 @@ RSpec.describe User, type: :model do
 
   describe 'passwordの有効性に対するテスト' do
     it 'passwordが６文字以上ならTrueを返す' do
-      @user = FactoryBot.build(:user, password: "a" * 6, password_confirmation: "a" * 6)
+      @user = FactoryBot.build(:user, password_is: "a" * 6, password_confirmation_is: "a" * 6)
       expect(@user).to be_valid
     end
     it 'passwordが5文字以下ならFalseを返す' do
-      @user = FactoryBot.build(:user, password: "a" * 5, password_confirmation: "a" * 5)
+      @user = FactoryBot.build(:user, password_is: "a" * 5, password_confirmation_is: "a" * 5)
       expect(@user).to be_invalid
     end
   end

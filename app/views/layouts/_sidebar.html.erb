@@ -1,19 +1,23 @@
-
-<% if user_signed_in? %>
-  <h2>Hello <%= current_user.name %>さん</h2>
-  <div class="user_icon">
-    <% if current_user.image? %>
-      <%= image_tag current_user.image_url %>
-    <% else %>
-      <%= image_tag("default.jpg") %>
-    <% end %>
-
+<sidebar class="sidebar">
+  <div class="side_content">
+    <h2><a href="/users/<%= current_user.id %>">Hello, <%= current_user.name %>さん</a></h2>
+    <div class="side_user_icon">
+      <% if current_user.image? %>
+        <%= image_tag current_user.image_url, size: "300x250",alt: "user_image" %>
+      <% else %>
+        <%= image_tag("default.jpg", size: "300x250",alt: "default_image")%>
+      <% end %>
+    </div>
+    <div class="follower">
+      
+    </div>
+    <div class="side_footer">
+      <nav>
+        <ul>
+          <li><%= link_to "<ログアウト>", destroy_user_session_path, :method => :delete %></li>
+          <li><%= link_to "<プロフィール変更>", edit_user_registration_path %></li>
+        <ul>
+      <nav>
+    </div>
   </div>
-  <br>
-  <%= link_to "<ログアウト>", destroy_user_session_path, :method => :delete %>
-  <%= link_to "<プロフィール変更>", edit_user_registration_path %><hr>
-<% else %>
-  <div><%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary" %></div>
-  <br><br>
-  <div><%= link_to "Log in", new_user_session_path, class: "btn btn-primary" %></div>
-<% end %>
+</sidebar>

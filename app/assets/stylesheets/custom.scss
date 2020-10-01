@@ -3,6 +3,54 @@
 
 /* universal */
 
+.top-wrapper {
+  background-image: url('main_background.jpg');
+  // 背景を固定する
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center top;
+  width: 100% auto;
+  background-size:cover;
+}
+
+.site-description ul {
+  margin-top: 10px;
+  float: left;
+}
+
+.sign_up_btn {
+  display: inline-block;
+  padding: 0.3em 1em;
+  text-decoration: none;
+  color: #67c5ff;
+  border: solid 2px #67c5ff;
+  border-radius: 3px;
+  transition: .4s;
+}
+
+.sign_up_btn:hover {
+  background: #67c5ff;
+  color: white;
+}
+
+.log_in_btn {
+  display: inline-block;
+  padding: 0.3em 1em;
+  text-decoration: none;
+  color: #67c5ff;
+  border: solid 2px #67c5ff;
+  border-radius: 3px;
+  transition: .4s;
+}
+
+.log_in_btn:hover {
+  background: #67c5ff;
+  color: white;
+}
+
+
+
+
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
   -webkit-box-sizing: border-box;
@@ -23,21 +71,21 @@ body {
   padding-top: 60px;
 }
 
-section {
-  overflow: auto;
-}
+// section {
+//   overflow: auto;
+// }
 
 textarea {
   resize: vertical;
 }
 
-.center {
-  text-align: center;
-}
-
-.center h1 {
-  margin-bottom: 10px;
-}
+// .center {
+//   text-align: center;
+// }
+//
+// .center h1 {
+//   margin-bottom: 10px;
+// }
 
 /* typography */
 
@@ -66,12 +114,27 @@ p {
   line-height: 1.7em;
 }
 
+.artist_index{
+    width: 100%;
+    height: 300px;
+    overflow: scroll;
+}
+
+
+.artist_index_icon{
+  float: left;
+  margin: 10px;
+}
+
+
+
+
 /* header */
 
 #logo {
   float: left;
   margin-right: 10px;
-  font-size: 1.7em;
+  font-size: 2.0em;
   color: #fff;
   text-transform: uppercase;
   letter-spacing: -1px;
@@ -81,8 +144,37 @@ p {
 
 #logo:hover {
   color: #fff;
-  text-decoration: none;
+  text-decoration: underline;
 }
+
+/* ヘッダーの固定 */
+header{
+  border-top:3px solid #000;
+}
+.navbar-fixed-top{
+    position: fixed;            /* ヘッダーの固定 */
+    top: 0px;                   /* 位置(上0px) */
+    left: 0px;                  /* 位置(右0px) */
+    width: 100%;                /* 横幅100%　*/
+    height: 60px;              /* 縦幅140px */
+    background-color:#000;     /* 背景色(黒) */
+}
+
+// .container {
+// 	background-color:#444;     /* 背景色(黒) */
+// 	padding:10px 0 20px;       /* 上10px、下20pxをあける */
+// 	height:110px;              /* 縦の高さ110px */
+// 	width:100%;                /* 横の幅を100% */
+// }
+
+
+// div#header {
+// 	border: 5px solid #fff;    /* 表示領域を白枠で囲う */
+// 	height: 100%;              /* 縦の表示領域はheader-bkと同じ */
+// 	width: 960px;              /* 横の幅970px */
+// 	margin: auto;              /* 中央揃え */
+// }
+
 
 /* footer */
 
@@ -115,17 +207,18 @@ footer ul li {
   margin-left: 15px;
 }
 
-/* sidebar */
 
 .sidebar_fixed {
   position: sticky;
   top: 60px;
-  color: #dcdcdc;
+  color: #fff;
 }
-.sidebar_content {
-  margin-bottom: 100px;
-  color: #dcdcdc;
-}
+// .sidebar_content {
+//   margin-bottom: 100px;
+//   color: #fff;
+// }
+
+
 
 /* forms */
 

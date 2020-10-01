@@ -1,21 +1,39 @@
-<% provide(:title, "User Home") %>
-<div class="container">
-  <div class="jumbotron m-3">
-    <h1 class="display-4">Users#index</h1>
-    <hr class="my-4">
-
-
-<% if user_signed_in? %>
-  <h2>Hello <%= current_user.name %></h2>
-
-    <% @artists.each do |a| %>
-      <p><a href="/artists/<%= a.id %>"><%= a.name %></a></p>
-      <hr>
-    <% end %>
-    <%= link_to "ログアウト", destroy_user_session_path, :method => :delete %>
+<% unless user_signed_in? %>
+<div class="site-description">
+  <div class="row">
+    <div class="col-5">
+      <h3 style="color: #fff">ライブ好きのためのアプリ</h3>
+      <p  style="color: #fff">好きなアーティストを通じて</p>
+      <p  style="color: #fff">同じ熱量の仲間を見つけて</p>
+      <p  style="color: #fff">ライブにいこう！！！</p>
+    </div>
+    <div class="col">
+      <div class="container">
+        <ul><%= link_to "Sign up", new_user_registration_path, class: "sign_up_btn" %></ul>
+        <ul><%= link_to "Log in", new_user_session_path, class: "log_in_btn" %></ul>
+      </div>
+    </div>
+  </div>
+</div>
 <% else %>
-  <div><%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary" %></div>
-  <br>
-  <br>
-  <div><%= link_to "Log in", new_user_session_path, class: "btn btn-primary" %></div>
+  <% provide(:title, "User Home") %>
+  <div class="container">
+    <div class="jumbotron m-3">
+      <h1 class="display-4">Users#index</h1>
+      <hr class="my-4">
+        <div class="artist_index">
+          <% @artists.each do |a| %>
+            <div class="artist_index_icon">
+              <% if a.icon.nil?%>
+                <%= image_tag("default.jpg", size: "200",alt: "default_image")%>
+              <%else%>
+                <%= image_tag(a.icon, size: "200",alt: "artist_image")%>
+              <%end%>
+
+              <p><a href="/artists/<%= a.id %>"><%= a.name %></a></p>
+            </div>
+          <% end %>
+        </div>
+
+    <%= link_to "ログアウト", destroy_user_session_path, :method => :delete %>
 <% end %>

@@ -29,12 +29,16 @@
   <div class="field">
   <%= f.label :sex %><br />
 
-  <%= radio_button_tag(:sex, 1) %>
-  <%= label_tag(:sex, '男性') %>
-  <%= radio_button_tag(:sex, 2) %>
-  <%= label_tag(:sex, '女性') %>
+  <%= f.radio_button(:sex, 1) %>
+  <%= f.label(:sex, '男性') %>
+  <%= f.radio_button(:sex, 2) %>
+  <%= f.label(:sex, '女性') %>
+  </div>
 
-  <br />
+  <div class="field">
+  <%= f.label :birthday %><br />
+  <%= f.date_select :birthday, use_month_numbers: true, start_year: 1920, end_year: (Time.now.year - 10), default: Date.new(2000, 1, 1) %>
+  </div>
 
   <div class="field">
     <%= f.label :introduction %><br />
@@ -43,6 +47,6 @@
 
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "SIGN UP" %>
   </div>
 <% end %>

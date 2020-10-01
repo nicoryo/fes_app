@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:show]
-  
+
   def index
     @users   = User.all
     @artists = Artist.all
@@ -64,13 +64,6 @@ class UsersController < ApplicationController
     @user   = User.find(params[:id])
     @users  = @user.followers
     render 'show_follow'
-  end
-
-  def maching?
-    unless current_user.following.include?(@user) && @user.following.include?(current_user)
-      flash[:danger] = '相互フォローではありません'
-      redirect_to root_path
-    end
   end
 
   private
