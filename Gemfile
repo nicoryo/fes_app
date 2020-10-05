@@ -42,6 +42,7 @@ gem 'rspec-rails'
 gem 'rspotify', '~> 2.9', '>= 2.9.1'
 #アクセストークンを非表示化
 gem 'dotenv-rails'
+gem 'net-ssh'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
