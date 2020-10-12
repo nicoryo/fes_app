@@ -12,8 +12,10 @@ RUN bundle install
 COPY . /fes_app
 
 COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
-EXPOSE 3009
+# RUN chmod +x /usr/bin/entrypoint.sh
+# ENTRYPOINT ["entrypoint.sh"]
+# EXPOSE 3009
+# CMD ["rails", "server", "-b", "0.0.0.0"]
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+# puma.sockを配置するディレクトリを作成
+RUN mkdir -p tmp/sockets

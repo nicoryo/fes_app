@@ -1,26 +1,67 @@
 version: '3'
 services:
+  # db:
+  #   image: mysql:8.0
+  #   env_file:
+  #     - ./environments/db.env
+  #   ports:
+  #     - '3306:3306'
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   volumes:
+  #     - mysql-data:/var/lib/mysql:cached
+
+  app:
+    build:
+      context: .
+    env_file:
+      - ./environments/db.env
+    command: bundle exec puma -C config/puma.rb
+    volumes:
+      - .:/fes_app
+      - public-data:/fes_app/public
+      - tmp-data:/fes_app/tmp
+      - log-data:/fes_app/log
+    depends_on:
+      - db
+
   db:
     image: mysql:8.0
     env_file:
       - ./environments/db.env
-    ports:
-      - '3306:3306'
     command: --default-authentication-plugin=mysql_native_password
     volumes:
-      - mysql-data:/var/lib/mysql:cached
+      - db-data:/var/lib/mysql
+      # - ./mysql-confd:/etc/mysql/conf.d
+
   web:
-    build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3009 -b '0.0.0.0'"
+    build:
+      context: containers/nginx
     volumes:
-      - .:/fes_app
+      - public-data:/fes_app/public
+      - tmp-data:/fes_app/tmp
     ports:
-      - "3009:3000"
+      - 80:80
     depends_on:
-      - db
-    stdin_open: true
-    tty: true
-    command: bundle exec rails server -b 0.0.0.0
+      - app
+
+#   web:
+#     build: .
+#     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3009 -b '0.0.0.0'"
+#     volumes:
+#       - .:/fes_app
+#     ports:
+#       - "3009:3000"
+#     depends_on:
+#       - db
+#     stdin_open: true
+#     tty: true
+#     command: bundle exec rails server -b 0.0.0.0
+# volumes:
+#   mysql-data:
+#     driver: local
+
 volumes:
-  mysql-data:
-    driver: local
+  public-data:
+  tmp-data:
+  log-data:
+  db-data:
