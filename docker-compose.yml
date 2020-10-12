@@ -23,6 +23,8 @@ services:
       - log-data:/fes_app/log
     depends_on:
       - db
+    environment:
+      RAILS_ENV: ${DOCKER_RAILS_ENV}
 
   db:
     image: mysql:8.0
