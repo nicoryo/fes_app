@@ -1,21 +1,14 @@
 version: '3'
 services:
-  # db:
-  #   image: mysql:8.0
-  #   env_file:
-  #     - ./environments/db.env
-  #   ports:
-  #     - '3306:3306'
-  #   command: --default-authentication-plugin=mysql_native_password
-  #   volumes:
-  #     - mysql-data:/var/lib/mysql:cached
-
   app:
     build:
       context: .
     env_file:
       - ./environments/db.env
     command: bundle exec puma -C config/puma.rb
+    # command: bash -c "rm -f tmp/pids/server.pid"
+    tty: true
+    stdin_open: true
     volumes:
       - .:/fes_app
       - public-data:/fes_app/public
@@ -32,7 +25,7 @@ services:
       - ./environments/db.env
     command: --default-authentication-plugin=mysql_native_password
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data:/var/lib/mysql:cached
       # - ./mysql-confd:/etc/mysql/conf.d
 
   web:
