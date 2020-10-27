@@ -31,7 +31,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # add rubygems
-gem 'bootstrap-sass'
+
+gem 'semantic-ui-sass'
 gem 'carrierwave'
 gem 'devise'
 gem 'dotenv-rails'

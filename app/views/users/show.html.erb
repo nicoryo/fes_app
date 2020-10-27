@@ -5,8 +5,7 @@
   <h1><%= @user.name %> のPage</h1>
 <% end %>
 
-<h2><%= @user.name %>さん</h2>
-<div class="user_icon">
+<div class="ui small image">
   <% if @user.image_url.nil?%>
     <%= image_tag("default.jpg")%>
   <%else%>
@@ -28,16 +27,14 @@
   <% @userFollowings.each do |user| %>
     <p><strong><a href="/users/<%= user.id %>"><%= user.name %>さん</a></strong></p>
   <% end %>
-    <% @user.following.count %>
+    <%= @user.following.count %>
 
 <% else %>
   <% unless current_user.following?(@user) %>
     <%= render 'relationships/follow_button', user: @user %>
   <% else %>
     <%= render 'relationships/follow_button', user: @user %>
-      <% if current_user.matching?(@user) %>
-      <% else %>
-
+      <% unless current_user.matching?(@user) %>
         <% if @isRoom == true %>
           <p><a href="/rooms/<%= @roomId %>">チャットへ</a>
         <% else %>
@@ -45,9 +42,12 @@
             <%= fields_for @entry do |e| %>
               <%= e.hidden_field :user_id, :value=> @user.id %>
             <% end %>
-            <%= f.submit "チャットを始める" %>
+            <%= f.submit "チャットを始める",class: "ui positive basic button" %>
+            <i class="comments icon"></i>
           <% end %>
         <% end %>
-      <% end %>
+
+      <% else %>
+    <% end %>
   <% end %>
 <% end %>

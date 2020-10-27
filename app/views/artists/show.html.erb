@@ -1,15 +1,26 @@
 <% provide(:title, "Artist") %>
 
-<h2><%= @artist.name %></h2></br>
-
-<div class="artist_icon">
-  <% if @artist.icon.nil?%>
-    <%= image_tag("default.jpg")%>
-  <%else%>
-    <%= image_tag (@artist.icon)%>
-  <%end%>
+<div class="item">
+  <div class="ui small image">
+    <% if @artist.icon.nil?%>
+      <%= image_tag("default.jpg")%>
+    <%else%>
+      <%= image_tag (@artist.icon)%>
+    <%end%>
+  </div>
+  <div class="middle aligned content">
+    <div class="header"><%= @artist.name %></div>
+    <div class="description">
+      <p>aaaaa</p>
+    </div>
+    <div class="extra">
+      <div class="ui right floated button">
+        <%= render 'favs/fav_button' %>
+      </div>
+    </div>
+  </div>
 </div>
-<%= render 'favs/fav_button' %>
+
 
 <% if user_signed_in? %>
   <h5>follower [<%= @user_Favorited.count %>]</h5>

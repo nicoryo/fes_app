@@ -1,13 +1,17 @@
-<div id="fav_form">
+<!-- <div id="fav_form"> -->
   <% if current_user.already_faved?(@artist) %>
     <%= form_with(model: current_user.favs.find_by(artist_id: @artist.id), local: true, method: :delete) do |f| %>
       <%= hidden_field_tag :artist_id, @artist.id %>
-      <%= f.submit 'Unfavorite', class: 'btn btn-danger' %>
+      <!-- <i class="user icon"></i> -->
+        <%= f.submit 'UnFollow',class: "negative ui button" %>
+
     <% end %>
   <% else %>
     <%= form_with(model: current_user.favs.build, local: true) do |f| %>
-      <div><%= hidden_field_tag :artist_id, @artist.id %></div>
-      <%= f.submit "Favorite", class: "btn btn-primary" %>
+      <%= hidden_field_tag :artist_id, @artist.id %>
+        <!-- <i class="user icon"></i> -->
+          <%= f.submit "Follow", class:"ui active button" %>
+
     <% end %>
   <% end %>
-</div>
+<!-- </div> -->

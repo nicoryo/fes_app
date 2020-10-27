@@ -8,7 +8,8 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
-import 'bootstrap'
+require("home/sidebar")
+// import 'bootstrap'
 import '../src/application.scss'
 
 // Uncomment to copy all static images under ../images to the output folder and reference

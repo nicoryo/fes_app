@@ -1,39 +1,53 @@
-<% unless user_signed_in? %>
-<div class="site-description">
-  <div class="row">
-    <div class="col-5">
-      <h3 style="color: #fff">ライブ好きのためのアプリ</h3>
-      <p  style="color: #fff">好きなアーティストを通じて</p>
-      <p  style="color: #fff">同じ熱量の仲間を見つけて</p>
-      <p  style="color: #fff">ライブにいこう！！！</p>
-    </div>
-    <div class="col">
-      <div class="container">
-        <ul><%= link_to "Sign up", new_user_registration_path, class: "sign_up_btn" %></ul>
-        <ul><%= link_to "Log in", new_user_session_path, class: "log_in_btn" %></ul>
+
+    <% unless user_signed_in? %>
+    <div class="pusher">
+      <div class="ui inverted vertical masthead center aligned segment">
+    <div class="ui text container">
+      <h1 class="ui inverted header">
+          ライブ好きのためのアプリ</h1><br>
+          <h2>好きなアーティストを通じて</h2>
+          <h2>同じ熱量の仲間を見つけて</h2>
+          <h2>ライブにいこう！！！</h2>
+
+          <div class="ui huge primary button">
+            <i class="sign in alternate icon"></i>
+            <%= link_to "Ready to Start", new_user_session_path, class: "signin" %>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<% else %>
-  <% provide(:title, "User Home") %>
-  <div class="container">
-    <div class="jumbotron m-3">
-      <h1 class="display-4">Users#index</h1>
-      <hr class="my-4">
-        <div class="artist_index">
-          <% @artists.each do |a| %>
-            <div class="artist_index_icon">
-              <% if a.icon.nil?%>
-                <%= image_tag("default.jpg", size: "200",alt: "default_image")%>
-              <%else%>
-                <%= image_tag(a.icon, size: "200",alt: "artist_image")%>
-              <%end%>
+    <% else %>
 
-              <p><a href="/artists/<%= a.id %>"><%= a.name %></a></p>
-            </div>
-          <% end %>
+      <% provide(:title, "User Home") %>
+        <div class="ui container">
+          <a class="header">Users#index</a>
         </div>
 
+      <div class="ui container">
+
+        <div class="ui link cards">
+          <% @artists.each do |a| %>
+            <div class="ui card">
+              <div class="ui image">
+                <% if a.icon.nil?%>
+                  <%= image_tag("default.jpg",class: "default_image") %>
+                <%else%>
+                  <%= image_tag(a.icon, class: "artist_image")%>
+                <%end%>
+              </div>
+              <div class="content">
+                <div class="header">
+                  <a href="/artists/<%= a.id %>"><%= a.name %></a>
+                </div>
+              </div>
+              <div class="extra content">
+                  <span><i class="user icon"></i>
+                   Friends </span>
+              </div>
+            </div>
+              <% end %>
+          </div>
+
+      </div>
     <%= link_to "ログアウト", destroy_user_session_path, :method => :delete %>
 <% end %>

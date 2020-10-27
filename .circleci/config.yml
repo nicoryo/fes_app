@@ -27,8 +27,6 @@ jobs:
           MYSQL_USER: root
           MYSQL_DB: fes_app_test
 
-          # MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-          # MYSQL_ROOT_HOST: '%'
     steps:
       - checkout
       - ruby/install-deps
@@ -50,6 +48,20 @@ jobs:
           name: テストの実行
           command: bundle exec rspec
 
+  # deploy:
+  #   docker:
+  #     - image: circleci/ruby:2.6.6-node-browsers
+  #       environment:
+  #         BUNDLER_VERSION: 1.17.2
+  #   steps:
+  #     - checkout
+  #     - ruby/install-deps
+  #     - add_ssh_keys:
+  #         fingerprints: "XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX"
+  #     - deploy:
+  #         name: Capistrano deploy
+  #         command: bundle exec cap production deploy
+
 
 workflows:
   version: 2
@@ -59,3 +71,9 @@ workflows:
       - test:
           requires:
             - build
+      # - deploy:
+      #     requires:
+      #       - test
+      #     filters:
+      #       branches:
+      #         only: master
