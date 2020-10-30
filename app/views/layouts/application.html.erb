@@ -19,19 +19,15 @@
         <%= yield %>
 
       <% else %>
-      <div class="ui grid">
-        <div class="two wide column">
           <%= render 'layouts/sidebar' %>
-        </div>
-        <div class="ten wide column">
+
           <div class="ui container">
             <%= render 'layouts/header' %>
             <%= yield %>
           </div>
-        </div>
-      </div>
+
       <% end %>
-        <%= render 'layouts/footer' %>
-        <%= debug(params) if Rails.env.development? %>
+        <%= render 'layouts/footer' unless @skip_footer %>
+        <%= debug(params) if Rails.env.development?  unless @skip_footer%>
   </body>
 </html>

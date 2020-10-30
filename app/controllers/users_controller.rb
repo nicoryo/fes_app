@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def index
     @users   = User.all
     @artists = Artist.all
+    @search_artists = @artists.where('name LIKE ?', "%#{params[:search]}%") if params[:search].present?
   end
 
   def show
@@ -13,6 +14,7 @@ class UsersController < ApplicationController
     @userFollowings = @user.following
     @userFollwers = @user.followers
     @userFavorites = @user.favorite_artists
+    @userMatchings = @user.following && @user.followers
     @currentUserEntry = Entry.where(user_id: current_user.id)
     @userEntry        = Entry.where(user_id: @user.id)
     if @user.id == current_user.id
@@ -43,10 +45,6 @@ class UsersController < ApplicationController
     render action: :edit unless @user.save
   end
 
-  # def add_tag
-  #   @user = User.find(params[:id])
-  #   @adding = @user.adding_tags
-  # end
   def favorite_artist
     @user = User.find(params[:id])
     @users = @user.favorite_artists
@@ -65,6 +63,8 @@ class UsersController < ApplicationController
     @users  = @user.followers
     render 'show_follow'
   end
+
+
 
   private
 

@@ -1,0 +1,9 @@
+<%= form_with(model: @artist, local: true) do |f| %>
+  <%= f.hidden_field :id, value: searchartist.id %>
+  <%= f.hidden_field :name, value: searchartist.name %>
+    <% if searchartist.images.present?%>
+      <% image_url = open(searchartist.images[2]["url"]) %>
+      <%= f.hidden_field :icon, value: searchartist.images[2]["url"] %>
+    <%end%>
+  <%= f.submit "Create new artist", class: "ui primary button" %>
+<% end %>

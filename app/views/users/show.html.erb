@@ -5,49 +5,188 @@
   <h1><%= @user.name %> のPage</h1>
 <% end %>
 
-<div class="ui small image">
-  <% if @user.image_url.nil?%>
-    <%= image_tag("default.jpg")%>
-  <%else%>
-    <%= image_tag (@user.image_url)%>
-  <%end%>
-</div>
-<% if @user.id == current_user.id %>
-  <h3>いいねしているアーティスト</h3>
-  <% @userFavorites.each do |artist| %>
-    <a href="/artists/<%= artist.id %>"><%= artist.name %></a>
-    <hr>
-  <% end %>
 
-  <h5>follower</h5>
-  <% @userFollwers.each do |user| %>
-    <p><strong><a href="/users/<%= user.id %>"><%= user.name %>さん</a></strong></p>
-  <% end %>
-  <h5>following</h5>
-  <% @userFollowings.each do |user| %>
-    <p><strong><a href="/users/<%= user.id %>"><%= user.name %>さん</a></strong></p>
-  <% end %>
-    <%= @user.following.count %>
+<div class="ui two column grid">
+  <div class="column">
+    <div class="ui raised segment">
+      <a class="ui red ribbon label"><%= @user.name %> <i class="user icon"></i></a>
+      <span>アカウント詳細</span>
+      <br>
 
-<% else %>
-  <% unless current_user.following?(@user) %>
-    <%= render 'relationships/follow_button', user: @user %>
-  <% else %>
-    <%= render 'relationships/follow_button', user: @user %>
-      <% unless current_user.matching?(@user) %>
-        <% if @isRoom == true %>
-          <p><a href="/rooms/<%= @roomId %>">チャットへ</a>
+      <div class="ui circular small image">
+        <% if @user.image_url.nil?%>
+          <%= image_tag("default.jpg")%>
+        <%else%>
+          <%= image_tag (@user.image_url)%>
+        <%end%>
+      </div>
+      <div class="meta">
+        <span class="ui date"><%= @user.created_at %></span>に加入
+        <p><% if @user.sex = "0" %>
+            <a>男性</a>
+          <% else %>
+            <a>女性</a>
+          <% end %>
+        </p>
+      </div>
+
+
+      <div class="ui right floated item">
+        <% unless current_user.id == @user.id %>
+          <% unless current_user.following?(@user) %>
+            <%= render 'relationships/follow_button', user: @user %>
+          <% else %>
+            <%= render 'relationships/follow_button', user: @user %>
+          <% end %>
         <% else %>
-          <%= form_for @room do |f| %>
-            <%= fields_for @entry do |e| %>
-              <%= e.hidden_field :user_id, :value=> @user.id %>
+        <% end %>
+      </div>
+
+      <p></p>
+        <h4 class="ui horizontal divider header"><i class="tag icon"></i>Introduction</h4>
+          <div class="description">
+              <%= @user.introduction %>
+          </div>
+        <h4 class="ui horizontal divider header"><i class="tag icon"></i></h4>
+      <p></p>
+
+      <a class="ui blue ribbon label">コミュニティ <i class="users icon"></i></a>
+
+      <p></p>
+
+        <div class="ui comments">
+        <% @userFavorites.each do |artist| %>
+          <div class="comment">
+            <a class="ui blue image label" href="/artists/<%= artist.id %>">
+              <% if artist.icon.nil?%>
+                <i class="ui headphone icon"></i>
+                <%= artist.name %>
+              <% else %>
+                <%= image_tag(artist.icon, alt: "artist_image") %>
+                <%= artist.name %>
+              <% end %>
+              <div class="detail">
+                <% if current_user.already_faved?(@artist) %>
+                  #
+                <% else %>
+                  %
+                <% end %>
+              </div>
+            </a>
+          </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="column">
+      <div class="ui raised segment">
+          <a class="ui green ribbon label">
+            follower
+          </a>
+          <span></span>
+          <p></p>
+          <div class="ui comments">
+            <% @userFollwers.each do |user| %>
+              <div class="comment">
+                <a class="ui green image label" href="/users/<%= user.id %>">
+                  <% if user.image_url.nil?%>
+                    <%= image_tag("default.jpg")%>
+                    <%= user.name %>
+                  <%else%>
+                    <%= image_tag (user.image_url)%>
+                    <%= user.name %>
+                  <%end%>
+                </a>
+              </div>
             <% end %>
-            <%= f.submit "チャットを始める",class: "ui positive basic button" %>
-            <i class="comments icon"></i>
+          </div>
+
+<h4 class="ui horizontal divider header"><i class="bug icon"></i></h4>
+
+            <a class="ui yellow ribbon label">
+              following
+            </a>
+            <span></span>
+            <p></p>
+            <div class="ui comments">
+              <% @userFollowings.each do |user| %>
+                <div class="comment">
+                  <a class="ui yellow image label" href="/users/<%= user.id %>">
+                    <% if user.image_url.nil?%>
+                      <%= image_tag("default.jpg")%>
+                      <%= user.name %>
+                    <%else%>
+                      <%= image_tag(user.image_url)%>
+                      <%= user.name %>
+                    <%end%>
+                  </a>
+                </div>
+              <% end %>
+            </div>
+
+<% if @user.id == current_user.id %>
+  <h4 class="ui horizontal divider header"><i class="bug icon"></i></h4>
+
+        <a class="ui pink ribbon label">
+          matching
+        </a>
+        <span></span>
+        <p></p>
+        <div class="ui comments">
+          <% @userMatchings.each do |user| %>
+            <div class="comment">
+              <a class="ui pink image label" href="/users/<%= user.id %>">
+                <% if user.image_url.nil?%>
+                  <%= image_tag("default.jpg")%>
+                  <%= user.name %>
+                <%else%>
+                  <%= image_tag(user.image_url)%>
+                  <%= user.name %>
+                <%end%>
+              </a>
+            </div>
+          <% end %>
+        </div>
+  <% else %>
+  <% end %>
+      </div>
+    </div>
+
+
+
+
+
+    <div class="column">
+      <div class="ui raised segment">
+        <a class="ui purple ribbon label">
+          Chat <i class="comment icon"></i>
+        </a>
+        <% if @user.id == current_user.id %>
+
+
+        
+        <% else %>
+
+        <% if current_user.following?(@user) %>
+          <% if current_user.matching?(@user) %>
+              <% if @isRoom == true %>
+                <p><a href="/rooms/<%= @roomId %>">チャットへ</a>
+              <% else %>
+                <%= form_for @room do |f| %>
+                  <%= fields_for @entry do |e| %>
+                    <%= e.hidden_field :user_id, :value=> @user.id %>
+                  <% end %>
+                  <%= button_tag '<i class="comments icon"></i>チャットを始める'.html_safe, :type => "submit",:class =>"ui positive basic button" %>
+                <% end %>
+              <% end %>
+            <% else %>
+            <% end %>
+          <% else %>
           <% end %>
         <% end %>
+        </div>
+      </div>
 
-      <% else %>
-    <% end %>
-  <% end %>
-<% end %>
+    </div>

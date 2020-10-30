@@ -1,52 +1,75 @@
-<h2>Sign up</h2>
+<div class="container">
+  <h2>Sign up</h2>
+  <div class="ui form segment">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <div class="field">
+      <%= f.label :name %>
+      <div class="ui left icon input">
+        <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+        <i class="user icon"></i>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+    <div class="field">
+      <%= f.label :email %>
+      <div class="ui left icon input">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <i class="mail icon"></i>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :password %>
+      <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %>
+      <div class="ui left icon input">
+        <%= f.password_field :password, autocomplete: "new-password" %>
+        <i class="lock icon"></i>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :password_confirmation %>
+      <div class="ui left icon input">
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        <i class="lock icon"></i>
+      </div>
+    </div>
+
+    <div class="inline fields">
+      <div class="field">
+        <%= f.label :sex %>
+        <div class="ui radio checkbox">
+          <%= f.radio_button(:sex, 1)%>
+          <%= f.label(:sex, '男性') %>
+        </div>
+        <div class="ui radio checkbox">
+          <%= f.radio_button(:sex, 2) %>
+          <%= f.label(:sex, '女性') %>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :birthday %>
+      <%= f.date_select :birthday, use_month_numbers: true, start_year: 1920, end_year: (Time.now.year - 10), default: Date.new(2000, 1, 1) %>
+    </div>
+
+
+    <div class="field">
+      <%= f.label :introduction %>
+      <%= f.text_area :introduction,
+        placeholder: "参加したフェスやライブ、参加予定のライブを書いてみよう！" ,
+        autofocus: true, autocomplete: "introduction", :size=>"60x10" %>
+    </div>
+    <br>
+    <div class="ui center aligned grid">
+      <%= button_tag '<i class="signup icon"></i>Sign Up'.html_safe, :type => "submit", :class =>"ui blue button" %>
+    </div>
+    <br>
+  <% end %>
   </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-  <%= f.label :sex %><br />
-
-  <%= f.radio_button(:sex, 1) %>
-  <%= f.label(:sex, '男性') %>
-  <%= f.radio_button(:sex, 2) %>
-  <%= f.label(:sex, '女性') %>
-  </div>
-
-  <div class="field">
-  <%= f.label :birthday %><br />
-  <%= f.date_select :birthday, use_month_numbers: true, start_year: 1920, end_year: (Time.now.year - 10), default: Date.new(2000, 1, 1) %>
-  </div>
-
-  <div class="field">
-    <%= f.label :introduction %><br />
-    <%= f.text_area :introduction, autofocus: true, autocomplete: "introduction", :size=>"60x10" %>
-  </div>
-
-
-  <div class="actions">
-    <%= f.submit "SIGN UP" %>
-  </div>
-<% end %>
+</div>

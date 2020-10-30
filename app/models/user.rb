@@ -33,10 +33,6 @@ class User < ApplicationRecord
     favorite_artists.include?(artist)
   end
 
-  # def adding?(tag)
-  #   self.adding_tags.include?(tag)
-  # end
-
   def remove(artist)
     unregistrate = favs.find_by(artist: artist.id)
     unregistrate&.destroy
@@ -51,6 +47,11 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  def follower?(other_user)
+    followers.include?(other_user)
+  end
+
+
   def follow!(other_user)
     active_relationships.create!(following_id: other_user.id)
   end
@@ -60,6 +61,6 @@ class User < ApplicationRecord
   end
 
   def matching?(other_user)
-    following.include?(@user) && following.include?(other_user)
+    followers.include?(other_user) && following.include?(other_user)
   end
 end

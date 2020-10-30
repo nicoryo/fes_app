@@ -2,33 +2,46 @@
 
 <h3>アーティスト名で検索 </h3>
   <%= form_with url: new_artist_path, method: :get, local: true do |form| %>
-    <%= form.text_field :search %>
-    <%= form.submit 'アーティスト名検索', name: nil %>
+    <div class="ui action input">
+    <%= form.text_field :search, class: "ui input focus", placeholder: "Search..." %>
+      <%= button_tag '<i class="search icon"></i>'.html_safe, :type => "submit", :class =>"ui button" %>
+    </div>
   <% end %>
-<h3>検索結果</h3>
-<div>
+
 <% if @searchartists.nil? %>
 <% else %>
-  <% @searchartists.each do |searchartist| %>
-    <div>
-      <h3><%= searchartist.name %></h3>
-      <% if searchartist.images.any? %>
-        <%= image_tag(searchartist.images[2]["url"]) %>
-        <% image_url = open(searchartist.images[2]["url"]) %>
-      <%else%>
-        <%= image_tag("default.jpg") %>
-      <%end%>
-    </div>
-    <%= form_with(model: @artist, local: true) do |f| %>
-      <%= f.hidden_field :id, value: searchartist.id %>
-      <%= f.hidden_field :name, value: searchartist.name %>
-        <% if searchartist.images.present?%>
-          <% image_url = open(searchartist.images[2]["url"]) %>
-            <%= f.hidden_field :icon, value: searchartist.images[2]["url"] %>
-        <%end%>
-      <%= f.submit "Create new artist", class: "btn btn-primary" %>
-    <% end %>
+  <h3>検索結果</h3>
+  <div class="ui container">
+    <div class="ui six doubling cards">
+      <% @searchartists.each do |searchartist| %>
+        <div class="ui card">
+          <div class="ui image">
+            <% if searchartist.images.any? %>
+              <%= image_tag(searchartist.images[2]["url"]) %>
+              <% image_url = open(searchartist.images[2]["url"]) %>
+            <%else%>
+              <%= image_tag("default.jpg") %>
+            <%end%>
+          </div>
+          <div class="content">
+            <div class="ui tiny header">
+              <%= searchartist.name %>
+            </div>
+          </div>
+          <div class="extra content">
+            <%= form_with(model: @artist, local: true) do |f| %>
+              <%= f.hidden_field :id, value: searchartist.id %>
+              <%= f.hidden_field :name, value: searchartist.name %>
+                <% if searchartist.images.present?%>
+                  <% image_url = open(searchartist.images[2]["url"]) %>
+                  <%= f.hidden_field :icon, value: searchartist.images[2]["url"] %>
+                <%end%>
+              <%= button_tag 'Create!'.html_safe, :type => "submit",:class =>"blue ui button" %>
+            <% end %>
+          </div>
 
-  <%end%>
-<%end%>
-</div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

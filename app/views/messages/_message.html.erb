@@ -1,0 +1,58 @@
+<div class="message" id="message-<%= message.id %>">
+  <div class="ui small comments">
+    <% if message.user.id == current_user.id %>
+    <div class="comment">
+      <a class="avatar">
+        <% if message.user.image? %>
+          <%= image_tag message.user.image_url %>
+        <% else %>
+          <%= image_tag("default.jpg") %>
+        <% end %>
+      </a>
+      <div class="content">
+        <a class="author">
+          <%= message.user.name %>
+        </a>
+        <div class="metadata">
+          <div class="date">
+            <time datetime="<%= message.created_at %>">
+              <%= time_ago_in_words(message.created_at) %>
+            </time>
+          </div>
+        </div>
+        <div class="text">
+          <p><%= simple_format(message.content) %></p>
+        </div>
+      </div>
+    </div>
+
+    <% else %>
+    <div class="comments">
+      <div class="comment">
+        <a class="avatar">
+          <% if message.user.image? %>
+            <%= image_tag message.user.image_url %>
+          <% else %>
+            <%= image_tag("default.jpg") %>
+          <% end %>
+        </a>
+        <div class="content">
+          <a class="author">
+            <%= message.user.name %>
+          </a>
+          <div class="metadata">
+            <div class="date">
+              <time datetime="<%= message.created_at %>">
+                <%= time_ago_in_words(message.created_at) %>
+              </time>
+            </div>
+          </div>
+          <div class="text">
+            <p><%= simple_format(message.content) %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

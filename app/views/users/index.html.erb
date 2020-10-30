@@ -1,53 +1,67 @@
-
-    <% unless user_signed_in? %>
-    <div class="pusher">
-      <div class="ui inverted vertical masthead center aligned segment">
-    <div class="ui text container">
-      <h1 class="ui inverted header">
+<% unless user_signed_in? %>
+  <div class="pusher">
+    <div class="ui inverted vertical masthead center aligned segment">
+      <div class="ui text container">
+        <h1 class="ui inverted header">
           ライブ好きのためのアプリ</h1><br>
-          <h2>好きなアーティストを通じて</h2>
-          <h2>同じ熱量の仲間を見つけて</h2>
-          <h2>ライブにいこう！！！</h2>
-
-          <div class="ui huge primary button">
-            <i class="sign in alternate icon"></i>
-            <%= link_to "Ready to Start", new_user_session_path, class: "signin" %>
-          </div>
-        </div>
+        <h2>好きなアーティストを通じて</h2>
+        <h2>同じ熱量の仲間を見つけて</h2>
+        <h2>ライブにいこう！！！</h2>
+          <%= link_to new_user_session_path, class: "ui huge primary button" do %>
+            <i class="sign in alternate icon"></i>Ready to Start
+          <% end %>
       </div>
     </div>
-    <% else %>
-
-      <% provide(:title, "User Home") %>
-        <div class="ui container">
-          <a class="header">Users#index</a>
-        </div>
-
-      <div class="ui container">
-
-        <div class="ui link cards">
-          <% @artists.each do |a| %>
-            <div class="ui card">
-              <div class="ui image">
-                <% if a.icon.nil?%>
-                  <%= image_tag("default.jpg",class: "default_image") %>
-                <%else%>
-                  <%= image_tag(a.icon, class: "artist_image")%>
-                <%end%>
-              </div>
-              <div class="content">
-                <div class="header">
-                  <a href="/artists/<%= a.id %>"><%= a.name %></a>
-                </div>
-              </div>
-              <div class="extra content">
-                  <span><i class="user icon"></i>
-                   Friends </span>
-              </div>
-            </div>
-              <% end %>
-          </div>
-
+  </div>
+<% else %>
+  <% provide(:title, "User Home") %>
+  <div class="ui column grid">
+    <div class="column">
+      <div class="ui raised segment">
+        <a class="ui red ribbon label">はじめに</a>
+        <a class="header">
+          好きなアーティストを登録して
+          気の合う友達を見つけよう！！
+        </a>
       </div>
-    <%= link_to "ログアウト", destroy_user_session_path, :method => :delete %>
+    </div>
+  </div>
+
+
+  <%= form_with url: artists_path, method: :get, local: true do |form| %>
+    <%= form.text_field :search %>
+    <%= form.submit 'Search', name: nil %>
+  <% end %>
+
+
+
+
+
+
+
+  <div class="ui container">
+    <div class="ui six doubling cards">
+      <% @artists.each do |a| %>
+        <div class="ui card">
+          <div class="ui image">
+            <% if a.icon.nil?%>
+              <%= image_tag("default.jpg",alt: "default_image") %>
+            <%else%>
+              <%= image_tag(a.icon, alt: "artist_image") %>
+            <% end %>
+          </div>
+          <div class="content">
+            <div class="ui tiny header">
+              <a href="/artists/<%= a.id %>"><%= a.name %></a>
+            </div>
+          </div>
+          <div class="extra content">
+              <span><i class="user icon"></i>
+               Friends
+             </span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 <% end %>

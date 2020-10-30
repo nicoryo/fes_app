@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # get 'users/index'
-  # get 'users/show'
-  # get 'artists/show'
+  mount ActionCable.server => '/cable'
+  get '/show_additionally', to: 'rooms#show_additionally'
+  get '/show_follower', to: 'users#show_follower'
+
   devise_for :users
 
   resources :users, only: %i[index show new create destroy edit update] do

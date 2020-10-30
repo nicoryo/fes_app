@@ -68,4 +68,6 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3009 }
 
   config.reload_classes_only_on_change = false
+
+  config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
 end

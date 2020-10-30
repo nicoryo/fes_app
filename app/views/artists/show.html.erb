@@ -1,31 +1,53 @@
 <% provide(:title, "Artist") %>
-
-<div class="item">
-  <div class="ui small image">
-    <% if @artist.icon.nil?%>
-      <%= image_tag("default.jpg")%>
-    <%else%>
-      <%= image_tag (@artist.icon)%>
-    <%end%>
-  </div>
-  <div class="middle aligned content">
-    <div class="header"><%= @artist.name %></div>
-    <div class="description">
-      <p>aaaaa</p>
-    </div>
-    <div class="extra">
-      <div class="ui right floated button">
-        <%= render 'favs/fav_button' %>
+<div class="ui column grid">
+  <div class="column">
+    <div class="ui raised segment">
+      <div class="item">
+        <div class="ui small image">
+          <% if @artist.icon.nil?%>
+            <%= image_tag("default.jpg")%>
+          <%else%>
+            <%= image_tag (@artist.icon)%>
+          <%end%>
+        </div>
+        <div class="middle aligned content">
+          <div class="header"><%= @artist.name %></div>
+          <div class="description">
+            <p>aaaaa</p>
+          </div>
+          <div class="extra">
+            <%= render 'favs/fav_button' %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-
-<% if user_signed_in? %>
-  <h5>follower [<%= @user_Favorited.count %>]</h5>
-    <% @user_Favorited.each do |user| %>
-      <a href="/users/<%= user.id %>"><%= user.name %></a>
-      <hr>
-    <% end %>
+<% if current_user.already_faved?(@artist) %>
+  <div class="ui column grid">
+    <div class="column">
+      <div class="ui raised segment">
+        <% if user_signed_in? %>
+          <h5>お気にしているユーザー [<%= @user_Favorited.count %>]</h5>
+          <div class="ui comments">
+            <% @user_Favorited.each do |user| %>
+              <div class="comment">
+                <a class="ui green image label" href="/users/<%= user.id %>">
+                  <% if user.image_url.nil?%>
+                    <%= image_tag("default.jpg")%>
+                    <%= user.name %>
+                  <% else %>
+                    <%= image_tag(user.image_url)%>
+                    <%= user.name %>
+                  <% end %>
+                </a>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% else %>
 <% end %>
