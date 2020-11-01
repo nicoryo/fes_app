@@ -63,11 +63,10 @@ Rails.application.configure do
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.file_watcher = ActiveSupport::FileUpdateChecker
 
-
   # mailer setting
   config.action_mailer.default_url_options = { host: 'localhost', port: 3009 }
 
   config.reload_classes_only_on_change = false
 
-  config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
+  config.action_cable.allowed_request_origins = [%r{http://*}, %r{https://*}]
 end

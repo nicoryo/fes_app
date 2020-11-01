@@ -2,7 +2,7 @@
   <% if current_user.already_faved?(@artist) %>
     <%= form_with(model: current_user.favs.find_by(artist_id: @artist.id), local: true, method: :delete) do |f| %>
       <%= hidden_field_tag :artist_id, @artist.id %>
-      <%= button_tag 'Unlike'.html_safe, :type => "submit",:class =>"negative ui button" %>
+      <%= button_tag 'Liked'.html_safe, :type => "submit",:class =>"basic ui button" %>
     <% end %>
   <% else %>
     <%= form_with(model: current_user.favs.build, local: true) do |f| %>

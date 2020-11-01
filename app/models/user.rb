@@ -4,7 +4,7 @@ class User < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   validates :name,  presence: true, length: { maximum: 50 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
@@ -50,7 +50,6 @@ class User < ApplicationRecord
   def follower?(other_user)
     followers.include?(other_user)
   end
-
 
   def follow!(other_user)
     active_relationships.create!(following_id: other_user.id)

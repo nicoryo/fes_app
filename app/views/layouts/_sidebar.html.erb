@@ -6,7 +6,7 @@
   </a>
 
   <% if current_user.image? %>
-    <a class="item">
+    <a class="item" href="/users/<%= current_user.id %>">
       <div class="ui circular mini image">
         <%= image_tag current_user.image_url,alt: "user_image" do %>
           <a href="/users/<%= current_user.id %>"></a>

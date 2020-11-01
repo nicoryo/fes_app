@@ -27,17 +27,32 @@
     </div>
   </div>
 
+  <div class="ui column grid">
+    <div class="column">
+      <div class="ui raised segment">
+        <%= form_with url: users_path, method: :get, local: true do |form| %>
+          <div class="ui action input">
+            <%= form.text_field :name , class: "ui input focus", placeholder: "Search..." %>
+            <%= button_tag '<i class="search icon"></i>'.html_safe, :type => "submit", :class =>"ui button"%>
+          </div>
+        <% end %>
 
-  <%= form_with url: artists_path, method: :get, local: true do |form| %>
-    <%= form.text_field :search %>
-    <%= form.submit 'Search', name: nil %>
-  <% end %>
-
-
-
-
-
-
+        <% if @search_artists.nil? %>
+        <% else %>
+          <% @search_artists.each do |artist| %>
+            <div class="ui avatar image">
+              <% if artist.icon.nil?%>
+                <%= image_tag("default.jpg",alt: "default_image") %>
+              <%else%>
+                <%= image_tag(artist.icon, alt: "artist_image") %>
+              <% end %>
+            </div>
+            <span><a href="/artists/<%= artist.id %>"><%= artist.name %></a></span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 
   <div class="ui container">
     <div class="ui six doubling cards">
@@ -55,11 +70,11 @@
               <a href="/artists/<%= a.id %>"><%= a.name %></a>
             </div>
           </div>
-          <div class="extra content">
+          <!-- <div class="extra content">
               <span><i class="user icon"></i>
                Friends
              </span>
-          </div>
+          </div> -->
         </div>
       <% end %>
     </div>

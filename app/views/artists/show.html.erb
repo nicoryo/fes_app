@@ -3,6 +3,7 @@
   <div class="column">
     <div class="ui raised segment">
       <div class="item">
+        <div class=" ui header"><%= @artist.name %></div>
         <div class="ui small image">
           <% if @artist.icon.nil?%>
             <%= image_tag("default.jpg")%>
@@ -11,9 +12,8 @@
           <%end%>
         </div>
         <div class="middle aligned content">
-          <div class="header"><%= @artist.name %></div>
+
           <div class="description">
-            <p>aaaaa</p>
           </div>
           <div class="extra">
             <%= render 'favs/fav_button' %>

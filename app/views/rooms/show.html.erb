@@ -1,13 +1,13 @@
 <% provide(:title, "Chat") %>
 
-<h4>参加者[<%= @roomId %>]</h4>
-
 <% @entries.each do |e| %>
   <h5><strong><a href="/users/<%= e.user.id %>"><%= e.user.name%>さん</a></strong></h5>
 <% end %>
 <div class="ui container">
   <div id="message-container">
+    <div class="ui raised segment">
     <%= render @messages %>
+    </div>
   </div>
 </div>
 <%= render 'footer' %>

@@ -21,8 +21,8 @@
         <%end%>
       </div>
       <div class="meta">
-        <span class="ui date"><%= @user.created_at %></span>に加入
-        <p><% if @user.sex = "0" %>
+        <span class="ui date"><%= @user.created_at.strftime("%Y-%m-%d") %></span>に加入
+        <p><% if @user.sex == "1" %>
             <a>男性</a>
           <% else %>
             <a>女性</a>
@@ -43,18 +43,18 @@
       </div>
 
       <p></p>
-        <h4 class="ui horizontal divider header"><i class="tag icon"></i>Introduction</h4>
-          <div class="description">
-              <%= @user.introduction %>
-          </div>
-        <h4 class="ui horizontal divider header"><i class="tag icon"></i></h4>
+      <h4 class="ui horizontal divider header"><i class="tag icon"></i>Introduction</h4>
+      <div class="description">
+        <%= @user.introduction %>
+      </div>
+      <h4 class="ui horizontal divider header"><i class="tag icon"></i></h4>
       <p></p>
 
       <a class="ui blue ribbon label">コミュニティ <i class="users icon"></i></a>
 
       <p></p>
 
-        <div class="ui comments">
+      <div class="ui comments">
         <% @userFavorites.each do |artist| %>
           <div class="comment">
             <a class="ui blue image label" href="/artists/<%= artist.id %>">
@@ -75,118 +75,108 @@
             </a>
           </div>
         <% end %>
-        </div>
       </div>
     </div>
+  </div>
 
-
-    <div class="column">
-      <div class="ui raised segment">
-          <a class="ui green ribbon label">
-            follower
-          </a>
-          <span></span>
-          <p></p>
-          <div class="ui comments">
-            <% @userFollwers.each do |user| %>
-              <div class="comment">
-                <a class="ui green image label" href="/users/<%= user.id %>">
-                  <% if user.image_url.nil?%>
-                    <%= image_tag("default.jpg")%>
-                    <%= user.name %>
-                  <%else%>
-                    <%= image_tag (user.image_url)%>
-                    <%= user.name %>
-                  <%end%>
-                </a>
-              </div>
-            <% end %>
-          </div>
-
-<h4 class="ui horizontal divider header"><i class="bug icon"></i></h4>
-
-            <a class="ui yellow ribbon label">
-              following
+  <div class="column">
+    <div class="ui raised segment">
+      <a class="ui yellow ribbon label">
+        following
+      </a>
+      <span></span>
+      <p></p>
+      <div class="ui comments">
+        <% @userFollowings.each do |user| %>
+          <div class="comment">
+            <a class="ui yellow image label" href="/users/<%= user.id %>">
+              <% if user.image_url.nil?%>
+                <%= image_tag("default.jpg")%>
+                <%= user.name %>
+              <%else%>
+                <%= image_tag(user.image_url)%>
+                <%= user.name %>
+              <%end%>
             </a>
-            <span></span>
-            <p></p>
-            <div class="ui comments">
-              <% @userFollowings.each do |user| %>
-                <div class="comment">
-                  <a class="ui yellow image label" href="/users/<%= user.id %>">
-                    <% if user.image_url.nil?%>
-                      <%= image_tag("default.jpg")%>
-                      <%= user.name %>
-                    <%else%>
-                      <%= image_tag(user.image_url)%>
-                      <%= user.name %>
-                    <%end%>
-                  </a>
-                </div>
-              <% end %>
-            </div>
-
-<% if @user.id == current_user.id %>
-  <h4 class="ui horizontal divider header"><i class="bug icon"></i></h4>
-
-        <a class="ui pink ribbon label">
-          matching
-        </a>
-        <span></span>
-        <p></p>
-        <div class="ui comments">
-          <% @userMatchings.each do |user| %>
-            <div class="comment">
-              <a class="ui pink image label" href="/users/<%= user.id %>">
-                <% if user.image_url.nil?%>
-                  <%= image_tag("default.jpg")%>
-                  <%= user.name %>
-                <%else%>
-                  <%= image_tag(user.image_url)%>
-                  <%= user.name %>
-                <%end%>
-              </a>
-            </div>
-          <% end %>
-        </div>
-  <% else %>
-  <% end %>
+          </div>
+        <% end %>
       </div>
+
+      <% if @user.id == current_user.id %>
+      <h4 class="ui horizontal divider header"><i class="bug icon"></i></h4>
+      <a class="ui green ribbon label">
+        follower
+      </a>
+      <span></span>
+      <p></p>
+      <div class="ui comments">
+        <% @userFollwers.each do |user| %>
+          <div class="comment">
+            <a class="ui green image label" href="/users/<%= user.id %>">
+              <% if user.image_url.nil?%>
+                <%= image_tag("default.jpg")%>
+                <%= user.name %>
+              <%else%>
+                <%= image_tag (user.image_url)%>
+                <%= user.name %>
+              <%end%>
+            </a>
+          </div>
+        <% end %>
+      </div>
+
+      <h4 class="ui horizontal divider header"><i class="bug icon"></i></h4>
+      <a class="ui pink ribbon label">
+        matching
+      </a>
+      <span></span>
+      <p></p>
+      <div class="ui comments">
+        <% @userFollowings.each do |user| %>
+          <% if @userFollwers.include?(user) %>
+          <div class="comment">
+            <a class="ui pink image label" href="/users/<%= user.id %>">
+              <% if user.image_url.nil?%>
+                <%= image_tag("default.jpg")%>
+                <%= user.name %>
+              <%else%>
+                <%= image_tag(user.image_url)%>
+                <%= user.name %>
+              <%end%>
+            </a>
+          </div>
+          <% end %>
+        <% end %>
+      </div>
+      <% else %>
+      <% end %>
     </div>
+  </div>
 
-
-
-
-
-    <div class="column">
-      <div class="ui raised segment">
-        <a class="ui purple ribbon label">
-          Chat <i class="comment icon"></i>
-        </a>
-        <% if @user.id == current_user.id %>
-
-
-        
-        <% else %>
-
-        <% if current_user.following?(@user) %>
-          <% if current_user.matching?(@user) %>
-              <% if @isRoom == true %>
-                <p><a href="/rooms/<%= @roomId %>">チャットへ</a>
-              <% else %>
-                <%= form_for @room do |f| %>
-                  <%= fields_for @entry do |e| %>
-                    <%= e.hidden_field :user_id, :value=> @user.id %>
-                  <% end %>
-                  <%= button_tag '<i class="comments icon"></i>チャットを始める'.html_safe, :type => "submit",:class =>"ui positive basic button" %>
-                <% end %>
-              <% end %>
+  <div class="column">
+    <div class="ui raised segment">
+      <a class="ui purple ribbon label">
+        Chat <i class="comment icon"></i>
+      </a>
+      <% if @user.id == current_user.id %>
+      <% else %>
+      <% if current_user.following?(@user) %>
+        <% if current_user.matching?(@user) %>
+            <% if @isRoom == true %>
+              <p><a href="/rooms/<%= @roomId %>">チャットへ</a>
             <% else %>
+              <%= form_for @room do |f| %>
+                <%= fields_for @entry do |e| %>
+                  <%= e.hidden_field :user_id, :value=> @user.id %>
+                <% end %>
+                <%= button_tag '<i class="comments icon"></i>チャットを始める'.html_safe, :type => "submit",:class =>"ui positive basic button" %>
+              <% end %>
             <% end %>
           <% else %>
           <% end %>
+        <% else %>
         <% end %>
-        </div>
+      <% end %>
       </div>
-
     </div>
+  </div>

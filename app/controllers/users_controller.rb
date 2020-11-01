@@ -6,7 +6,11 @@ class UsersController < ApplicationController
   def index
     @users   = User.all
     @artists = Artist.all
-    @search_artists = @artists.where('name LIKE ?', "%#{params[:search]}%") if params[:search].present?
+    @search_artists = if params[:name].present?
+                        Artist.where('name LIKE ?', "%#{params[:name]}%")
+                      else
+                        Artist.none
+                      end
   end
 
   def show
@@ -14,7 +18,7 @@ class UsersController < ApplicationController
     @userFollowings = @user.following
     @userFollwers = @user.followers
     @userFavorites = @user.favorite_artists
-    @userMatchings = @user.following && @user.followers
+
     @currentUserEntry = Entry.where(user_id: current_user.id)
     @userEntry        = Entry.where(user_id: @user.id)
     if @user.id == current_user.id
@@ -53,7 +57,7 @@ class UsersController < ApplicationController
   def following
     @title  = 'フォロー'
     @user   = User.find(params[:id])
-    @users  = @user.followings
+    @users  = @user.following
     render 'show_follow'
   end
 
@@ -63,8 +67,6 @@ class UsersController < ApplicationController
     @users  = @user.followers
     render 'show_follow'
   end
-
-
 
   private
 

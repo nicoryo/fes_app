@@ -1,24 +1,67 @@
-# README
+# 概要
+ライブ好きのためのマッチングアプリ」
+好きなアーティストを通じて、友達を見つけるアプリです。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# URL
+https://fesapp.ga/
 
-Things you may want to cover:
+# 制作の背景
+音楽アーティストのライブや、フェスにいくのが好きな20代でした。
+遠方に友達を連れて、フェスにいくと「駐車場の確保していないよ」、「宿泊施設ないよ」、「俺、お気にのアーティストのグッズを全部買いに行くわ！設営してて！」、「疲れたから帰りたい」など、意見がばらけて、せっかくの楽しいイベントなのにしらけてしまうことがありました。
 
-* Ruby version
+これは、イベントへの熱量の違いから発生しているのでは！？と思い、
+同じ熱量の仲間を探せるサービス作りを目指しました。
+・・・残念ながら、同じ熱量を測るアルゴリズムはできていないのが現状です。。。
+2020/11/01
 
-* System dependencies
+# 機能一覧
+* ユーザーのCRUD
+* ユーザーとユーザーのフォロー機能
+* ユーザー相互フォローによるマッチング機能（論理式でマッチングしていると判断させる）
+* ユーザー同士のメッセージのやり取り
+* ユーザーからアーティストをお気に入り登録（フォロー機能）
+* Spotify APIを使用して、アーティストを検索
 
-* Configuration
+#　環境・使用技術
 
-* Database creation
+## フロントエンド
+* semantic-ui-sass (2.4.2.0)
+* JavaScript
 
-* Database initialization
+## バックエンド
+* ruby 2.6.6
+* Rails 6.0.3.4
 
-* How to run the test suite
+## 開発環境
+* Docker/Docker-compose
+* MyAQL2
 
-* Services (job queues, cache servers, search engines, etc.)
+## テスト
+* Rspec
+* CircleCIを用いてdocker-composeでコンテナを構築し自動テスト
 
-* Deployment instructions
+## 本番環境
+* AWS (EC2、RDS for MySQL、Route53)
+* MySQL2
+* Nginx、 Puma
 
-* ...
+##  インフラ構成図
+
+[ 図を挿入する ]
+
+## その他使用技術
+
+* 外部API(Spotify API)
+* Rubocop
+
+# ER図
+
+[ 図を挿入する ]
+
+# 画面フロー設計図
+
+[ 図を挿入する ]
+
+# About me
+新卒で自動車会社で実験、生産技術をしておりました。
+2020年7月末より本格的にWebエンジニア目指して勉強しております。

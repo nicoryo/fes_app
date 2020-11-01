@@ -32,7 +32,6 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 # add rubygems
 
-gem 'semantic-ui-sass'
 gem 'carrierwave'
 gem 'devise'
 gem 'dotenv-rails'
@@ -41,19 +40,20 @@ gem 'kaminari'
 gem 'rmagick'
 gem 'rspec-rails'
 gem 'rspotify', '~> 2.9', '>= 2.9.1'
-#アクセストークンを非表示化
+gem 'semantic-ui-sass'
+# アクセストークンを非表示化
 gem 'dotenv-rails'
 gem 'net-ssh'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'factory_bot_rails'
-  gem 'capybara'
   gem 'capistrano'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
+  gem 'capybara'
+  gem 'factory_bot_rails'
 end
 
 group :development do

@@ -1,17 +1,21 @@
 <% provide(:title, "Artist") %>
 
-<p><%= link_to "新しくアーティストを登録する", new_artist_path %></p>
+<br>
+<%= link_to new_artist_path, class: "ui basic button" do %>
+  <i class="headphones icon"></i>アーティストを追加する
+<% end %>
+
 <hr>
 <% @artist.each do |a| %>
- <div class="ui content">
-  <div class="ui small image">
-      <% if a.icon.nil?%>
-        <%= image_tag("default.jpg")%>
-      <%else%>
-        <%= image_tag (a.icon)%>
-      <%end%>
-  </div>
-    <a href="/artists/<%= a.id %>"><%= a.name %></a>
-  </div>
-  <hr>
+  <a href="/artists/<%= a.id %>">
+    <h2 class="ui header">
+        <% if a.icon.nil?%>
+          <%= image_tag 'default.jpg', class: 'ui circular image'  %>
+        <%else%>
+          <%= image_tag (a.icon), class: 'ui circular image' %>
+        <%end%>
+        <%= a.name %>
+    </h2>
+  </a>
+<hr>
 <% end %>

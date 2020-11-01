@@ -1,54 +1,39 @@
 require 'rails_helper'
 
-RSpec.describe 'ログインとログアウト', type: :feature do
+RSpec.describe 'エラーが発生しない事を確認する', type: :feature do
   before do
     # ユーザを作成する
-    User.create!(name: 'Bob#1', email: 'foo@example.com', password: 'passpass', sex:'1', birthday: '1991.8.31', introduction: 'Hello')
+    User.create!(name: 'Bob#1', email: 'foo@example.com', password: 'passpass', sex: '1', birthday: '1991.8.31', introduction: 'Hello')
   end
-  it 'ログインする' do
-    visit root_path
-    click_on 'Log in'
-    fill_in 'Email', with: 'foo@example.com'
-    fill_in 'Password', with: 'passpass'
-    click_on 'Log in'
+
+  it 'ログインページにアクセスする' do
+    visit new_user_session_path
+
     # ログアウトに成功したことを検証する
+    expect(page).to have_content 'Forgot your password?'
+  end
+
+  it 'ログインする' do
+    visit new_user_session_path
+    fill_in 'user[email]', with: 'foo@example.com'
+    fill_in 'user[password]', with: 'passpass'
+    click_on 'Sent'
+    # ログインに成功したことを検証する
     expect(page).to have_content 'Signed in successfully.'
   end
 
   it 'ログアウトする' do
-    visit root_path
-    click_on 'Log in'
-    fill_in 'Email', with: 'foo@example.com'
-    fill_in 'Password', with: 'passpass'
-    click_on 'Log in'
-    click_on '<プロフィール変更>'
-    click_on 'ログアウト'
+    visit new_user_session_path
+    fill_in 'user[email]', with: 'foo@example.com'
+    fill_in 'user[password]', with: 'passpass'
+    click_on 'Sent'
+    page.all('.item')[4].click
+    # ログアウトに成功したことを検証する
     expect(page).to have_content 'Signed out successfully.'
   end
 
-  it 'ログインに失敗する　パス間違い' do
-    visit root_path
-    click_on 'Log in'
-    fill_in 'Email', with: 'foo@example.com'
-    fill_in 'Password', with: 'idontknowpassword'
-    click_on 'Log in'
-    expect(page).to have_content 'Invalid Email or password.'
-  end
-
-  it 'ログインに失敗する メールアドレス間違い' do
-    visit root_path
-    click_on 'Log in'
-    fill_in 'Email', with: 'hogehoge@example.com'
-    fill_in 'Password', with: 'passpass'
-    click_on 'Log in'
-    expect(page).to have_content 'Invalid Email or password.'
-  end
-end
-
-RSpec.feature 'User', type: :feature do
-  it 'ユーザー登録ができるか' do
-    visit root_path
-    click_on 'Sign up'
+  it 'ユーザーを登録する' do
+    visit new_user_registration_path
     fill_in 'user_name', with: 'ミニマムくん'
     fill_in 'user_email', with: 'minimum@example.co.jp'
     fill_in 'user_password', with: 'password'
@@ -56,19 +41,35 @@ RSpec.feature 'User', type: :feature do
     choose  'user_sex_1'
     # select '2011/01/01', from: 'user_birthday'
     fill_in 'user_introduction', with: 'Hello World'
-    click_on 'SIGN UP'
+    click_on 'Sent'
     expect(page).to have_content('Welcome! You have signed up successfully.')
   end
 end
 
-RSpec.describe 'ユーザー登録に失敗', type: :feature do
+RSpec.describe 'エラーが返る事を確認する', type: :feature do
   before do
-      # ユーザを作成する
-      User.create!(name: 'Bob#2', email: 'bob@example.com', password: 'passpass', sex:'1', birthday: '1991.8.31', introduction: 'Hello')
-    end
-  it 'メールアドレス被りver' do
-    visit root_path
-    click_on 'Sign up'
+    # ユーザを作成する
+    User.create!(name: 'Bob#2', email: 'bob@example.com', password: 'passpass', sex: '1', birthday: '1991.8.31', introduction: 'Hello')
+  end
+
+  it 'パス間違いでログインに失敗' do
+    visit new_user_session_path
+    fill_in 'user_email', with: 'foo@example.com'
+    fill_in 'user_password', with: 'idontknowpassword'
+    click_on 'Sent'
+    expect(page).to have_content 'Invalid Email or password.'
+  end
+
+  it 'メールアドレス間違いでログインに失敗' do
+    visit new_user_session_path
+    fill_in 'user_email', with: 'hogehoge@example.com'
+    fill_in 'user_password', with: 'passpass'
+    click_on 'Sent'
+    expect(page).to have_content 'Invalid Email or password.'
+  end
+
+  it '登録済みのメールアドレスを入力して登録失敗' do
+    visit new_user_registration_path
     fill_in 'user_name', with: 'ミニマムくん'
     fill_in 'user_email', with: 'bob@example.com'
     fill_in 'user_password', with: 'password'
@@ -76,12 +77,12 @@ RSpec.describe 'ユーザー登録に失敗', type: :feature do
     choose  'user_sex_1'
     # select '2011/01/01', from: 'user_birthday'
     fill_in 'user_introduction', with: 'Hello World'
-    click_on 'SIGN UP'
+    click_on 'Sent'
     expect(page).to have_content('Email has already been taken')
   end
-  it 'メールアドレス is nill ver' do
-    visit root_path
-    click_on 'Sign up'
+
+  it 'メールアドレス未記入で登録失敗' do
+    visit new_user_registration_path
     fill_in 'user_name', with: 'ミニマムくん'
     fill_in 'user_email', with: ''
     fill_in 'user_password', with: 'password'
@@ -89,7 +90,7 @@ RSpec.describe 'ユーザー登録に失敗', type: :feature do
     choose  'user_sex_1'
     # select '2011/01/01', from: 'user_birthday'
     fill_in 'user_introduction', with: 'Hello World'
-    click_on 'SIGN UP'
+    click_on 'Sent'
     expect(page).to have_content("Email can't be blank")
   end
 end
