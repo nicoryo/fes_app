@@ -6,11 +6,11 @@ class UsersController < ApplicationController
   def index
     @users   = User.all
     @artists = Artist.all
-    @search_artists = if params[:name].present?
-                        Artist.where('name LIKE ?', "%#{params[:name]}%")
-                      else
-                        Artist.none
-                      end
+    if params[:name].present?
+      @search_artists = Artist.where('name LIKE ?', "%#{params[:name]}%")
+    else
+      @search_artists = Artist.none
+    end
   end
 
   def show

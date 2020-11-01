@@ -1,25 +1,21 @@
 <div class="message" id="message-<%= message.id %>">
-  <% if message.user.id == current_user.id %>
-    <div class="balloon_r">
-      <div class="faceicon">
-
-      </div>
-      <div class="says">
-        <p><%= simple_format(message.content) %></p>
-      </div>
-    </div>
-  <% else %>
-    <div class="balloon_l">
-      <div class="faceicon">
+  <div class="ui comments">
+    <div class="comment">
+      <a class="avatar">
         <% if message.user.image? %>
           <%= image_tag message.user.image_url %>
         <% else %>
           <%= image_tag("default.jpg") %>
         <% end %>
-      </div>
-      <div class="says">
-        <p><%= simple_format(message.content) %></p>
+      </a>
+      <div class="content">
+        <a class="author"><%= message.user.name %></a>
+        <div class="metadata">
+          <span class="date"><%= time_ago_in_words(message.created_at) %></span>
+        </div>
+        <div class="text"><%= simple_format(message.content) %></div>
       </div>
     </div>
-  <% end %>
+  </div>
+  <hr>
 </div>
