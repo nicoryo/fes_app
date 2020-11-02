@@ -46,7 +46,6 @@ https://fesapp.ga/
 * Nginx、 Puma
 
 ##  インフラ構成図
-
 ![画面フローERD-Page-3](https://user-images.githubusercontent.com/49685825/97828908-c7de1c00-1d0b-11eb-9d3c-e68b73bfd132.jpg)
 
 ## その他使用技術
@@ -57,7 +56,7 @@ https://fesapp.ga/
 ![画面フローERD-ERD](https://user-images.githubusercontent.com/49685825/97828897-c14fa480-1d0b-11eb-85c8-36f7b4aac484.jpg)
 
 ## 画面フロー設計図
-画面フローERD-画面フロー.jpg
+
 ![画面フローERD-画面フロー](https://user-images.githubusercontent.com/49685825/97828899-c280d180-1d0b-11eb-9fee-cbbbf19a52f4.jpg)
 ##  至らぬポイント
 テスト数が少ない
