@@ -41,26 +41,27 @@ https://fesapp.ga/
 * CircleCIを用いてdocker-composeでコンテナを構築し自動テスト
 
 ## 本番環境
-* AWS (EC2、RDS for MySQL、Route53)
+* AWS (EC2、RDS for MySQL、Route53, ACM)
 * MySQL2
 * Nginx、 Puma
 
 ##  インフラ構成図
-
-[ 図を挿入する ]
+画面フローERD-Page-3.jpg
 
 ## その他使用技術
-
 * 外部API(Spotify API)
-* Rubocop
+* Freenomでドメイン名取得
 
-# ER図
+## ER図
+画面フローERD-ERD.jpg
 
-[ 図を挿入する ]
+## 画面フロー設計図
+画面フローERD-画面フロー.jpg
 
-# 画面フロー設計図
-
-[ 図を挿入する ]
+##  至らぬポイント
+テスト数が少ない
+チャットの非同期通信化の未実施（WebSocketを使用予定）
+Circle CIで自動テスト後の自動デプロイを未実施
 
 # About me
 新卒で自動車会社で実験、生産技術をしておりました。
