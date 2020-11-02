@@ -11,7 +11,8 @@
             <i class="sign in alternate icon"></i>Ready to Start
           <% end %>
 
-          <%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: "ui huge green button" %>
+          <hr>
+          <%= render 'devise/sessions/testuser' %>
 
       </div>
     </div>
