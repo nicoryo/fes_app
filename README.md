@@ -59,9 +59,10 @@ https://fesapp.ga/
 
 ![画面フローERD-画面フロー](https://user-images.githubusercontent.com/49685825/97828899-c280d180-1d0b-11eb-9fee-cbbbf19a52f4.jpg)
 ##  至らぬポイント
-テスト数が少ない
-チャットの非同期通信化の未実施（WebSocketを使用予定）
-Circle CIで自動テスト後の自動デプロイを未実施
+* テスト数が少ない
+* チャットの非同期通信化の未実施（WebSocketを使用予定）
+* Circle CIで自動テスト後の自動デプロイを未実施
+* チーム開発を意識したgithubの扱い
 
 # About me
 新卒で自動車会社で実験、生産技術をしておりました。
