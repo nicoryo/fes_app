@@ -46,18 +46,19 @@ https://fesapp.ga/
 * Nginx、 Puma
 
 ##  インフラ構成図
-画面フローERD-Page-3.jpg
+
+![画面フローERD-Page-3](https://user-images.githubusercontent.com/49685825/97828908-c7de1c00-1d0b-11eb-9d3c-e68b73bfd132.jpg)
 
 ## その他使用技術
 * 外部API(Spotify API)
 * Freenomでドメイン名取得
 
 ## ER図
-画面フローERD-ERD.jpg
+![画面フローERD-ERD](https://user-images.githubusercontent.com/49685825/97828897-c14fa480-1d0b-11eb-85c8-36f7b4aac484.jpg)
 
 ## 画面フロー設計図
 画面フローERD-画面フロー.jpg
-
+![画面フローERD-画面フロー](https://user-images.githubusercontent.com/49685825/97828899-c280d180-1d0b-11eb-9fee-cbbbf19a52f4.jpg)
 ##  至らぬポイント
 テスト数が少ない
 チャットの非同期通信化の未実施（WebSocketを使用予定）
@@ -66,3 +67,5 @@ Circle CIで自動テスト後の自動デプロイを未実施
 # About me
 新卒で自動車会社で実験、生産技術をしておりました。
 2020年7月末より本格的にWebエンジニア目指して勉強しております。
+
+
