@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   get '/show_additionally', to: 'rooms#show_additionally'
   get '/show_follower', to: 'users#show_follower'
+  post '/users/guest_sign_in', to: 'users#new_guest'
 
   devise_for :users
 
