@@ -76,6 +76,7 @@
           </div>
         <% end %>
       </div>
+      <%= paginate @userFavorites %>
     </div>
   </div>
 
@@ -101,6 +102,7 @@
           </div>
         <% end %>
       </div>
+      <%# <%= paginate @userFollowings %>
 
       <% if @user.id == current_user.id %>
       <h4 class="ui horizontal divider header"><i class="bug icon"></i></h4>
@@ -110,7 +112,7 @@
       <span></span>
       <p></p>
       <div class="ui comments">
-        <% @userFollwers.each do |user| %>
+        <% @userFollowers.each do |user| %>
           <div class="comment">
             <a class="ui green image label" href="/users/<%= user.id %>">
               <% if user.image_url.nil?%>
@@ -124,6 +126,7 @@
           </div>
         <% end %>
       </div>
+      <%# <%= paginate @userFollowers  %>
 
       <h4 class="ui horizontal divider header"><i class="bug icon"></i></h4>
       <a class="ui pink ribbon label">
@@ -133,7 +136,7 @@
       <p></p>
       <div class="ui comments">
         <% @userFollowings.each do |user| %>
-          <% if @userFollwers.include?(user) %>
+          <% if @userFollowers.include?(user) %>
           <div class="comment">
             <a class="ui pink image label" href="/users/<%= user.id %>">
               <% if user.image_url.nil?%>

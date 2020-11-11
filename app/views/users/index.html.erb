@@ -74,13 +74,9 @@
               <a href="/artists/<%= a.id %>"><%= a.name %></a>
             </div>
           </div>
-          <!-- <div class="extra content">
-              <span><i class="user icon"></i>
-               Friends
-             </span>
-          </div> -->
         </div>
       <% end %>
     </div>
   </div>
+  <%= paginate @artists %>
 <% end %>

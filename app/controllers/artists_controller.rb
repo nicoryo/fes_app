@@ -31,6 +31,8 @@ class ArtistsController < ApplicationController
   def show
     @artist = Artist.find(params[:id])
     @user_Favorited = @artist.favorited_users
+    @comment  = current_user.comments.build
+    @comments = @artist.comments.last(5)
   end
 
   def edit

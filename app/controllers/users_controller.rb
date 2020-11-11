@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def index
     @users   = User.all
-    @artists = Artist.all
+    @artists = Artist.all.page(params[:page]).per(10)
     if params[:name].present?
       @search_artists = Artist.where('name LIKE ?', "%#{params[:name]}%")
     else
@@ -15,9 +15,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @userFollowings = @user.following
-    @userFollwers = @user.followers
-    @userFavorites = @user.favorite_artists
+    @userFollowings = @user.following.page(params[:page]).per(5)
+    @userFollowers = @user.followers.page(params[:page]).per(5)
+    @userFavorites = @user.favorite_artists.page(params[:page]).per(10)
+    @comments = @user.comments
 
     @currentUserEntry = Entry.where(user_id: current_user.id)
     @userEntry        = Entry.where(user_id: @user.id)

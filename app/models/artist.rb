@@ -4,6 +4,7 @@ class Artist < ApplicationRecord
   has_many :favs, dependent: :destroy
   has_many :favorited_users, through: :favs, source: :user
   has_many :users, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates :id,    uniqueness: { case_sensitive: false }
   validates :name,  presence: true, uniqueness: { case_sensitive: false }

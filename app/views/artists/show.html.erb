@@ -1,5 +1,6 @@
 <% provide(:title, "Artist") %>
-<div class="ui column grid">
+
+<div class="ui two column grid">
   <div class="column">
     <div class="ui raised segment">
       <div class="item">
@@ -22,6 +23,27 @@
       </div>
     </div>
   </div>
+
+  <div class="column">
+    <div class="ui raised segment">
+      <div class="item">
+        <div class="middle aligned content">
+          <% if current_user.already_faved?(@artist) %>
+          <%= render 'comments/comments_form' %>
+            <% if @artist.comments.any? %>
+              <h3>コメント (<%= @artist.comments.count %>)</h3>
+              <ol class="comments">
+                <%= render 'comments/comments', comment: @comments %>
+              </ol>
+
+            <% end %>
+          <% end %>
+          <%# <%= paginate @comments %>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <% if current_user.already_faved?(@artist) %>

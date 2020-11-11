@@ -13,12 +13,13 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :timeoutable
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :artists, dependent: :destroy
   has_many :favs
   has_many :favorite_artists, through: :favs, source: :artist
+  has_many :comments, dependent: :destroy
 
   has_many :active_relationships, class_name:  'Relationship', foreign_key: 'follower_id', dependent: :destroy
   has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'following_id', dependent: :destroy
@@ -27,6 +28,10 @@ class User < ApplicationRecord
 
   def registrating(artist)
     favs.find_or_create_by(artist_id: artist.id) unless favs.include?(artist)
+  end
+
+  def commented(artist)
+    commets.find_or_create_by(artist_id: artist.id) unless comments.include?(artist)
   end
 
   def already_faved?(artist)

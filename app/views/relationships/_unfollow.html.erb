@@ -1,6 +1,11 @@
 <%= form_with(model: current_user.active_relationships.find_by(following_id: @user.id),
             html: { method: :delete }, local: true) do |f| %>
-  <%= button_tag '<i class="heartbeat icon"></i>Unfollow'.html_safe, :type => "submit",
-:class =>"ui labeled icon button" %>
-
+  <%= button_tag  :type => "submit", :class =>"ui animated red button" do %>
+    <div class="visible content">
+      Following
+    </div>
+    <div class="hidden content">
+      <i　aria-hidden="true"></i>UnFollow?
+    </div>
+  <% end %>
 <% end %>

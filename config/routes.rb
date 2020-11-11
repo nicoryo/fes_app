@@ -26,5 +26,7 @@ Rails.application.routes.draw do
   resources :artists, only: %i[index show search new create] do
     resources :favs, only: %i[create destroy]
   end
+  resources :comments, only: %i[index show create destroy]
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
