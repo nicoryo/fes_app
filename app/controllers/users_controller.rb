@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     @userFollowings = @user.following.page(params[:page]).per(5)
     @userFollowers = @user.followers.page(params[:page]).per(5)
     @userFavorites = @user.favorite_artists.page(params[:page]).per(10)
-    @comments = @user.comments
+
 
     @currentUserEntry = Entry.where(user_id: current_user.id)
     @userEntry        = Entry.where(user_id: @user.id)

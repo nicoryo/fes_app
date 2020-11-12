@@ -30,10 +30,6 @@ class User < ApplicationRecord
     favs.find_or_create_by(artist_id: artist.id) unless favs.include?(artist)
   end
 
-  def commented(artist)
-    commets.find_or_create_by(artist_id: artist.id) unless comments.include?(artist)
-  end
-
   def already_faved?(artist)
     favorite_artists.include?(artist)
   end
