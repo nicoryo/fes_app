@@ -1,0 +1,9 @@
+<div class="comment_form">
+  <%= form_with model: @comment, class: 'js-form', remote: true do |f| %>
+    <div class="ui action input">
+      <%= f.text_area :content, class: "ui input focus", placeholder: "Compose new comment..." %>
+      <%= f.hidden_field :artist_id, :value => @artist.id %>
+      <%= f.submit "submit", class: "ui green button" %>
+    </div>
+  <% end %>
+</div>

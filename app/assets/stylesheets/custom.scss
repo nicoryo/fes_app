@@ -40,43 +40,6 @@ textarea {
 
 /* typography */
 
-// h1, h2, h3, h4, h5, h6 {
-//   line-height: 1;
-// }
-
-// h1 {
-//   font-size: 3em;
-//   letter-spacing: -2px;
-//   margin-bottom: 30px;
-//   text-align: center;
-// }
-
-// h2 {
-//   font-size: 1.2em;
-//   letter-spacing: -1px;
-//   margin-bottom: 30px;
-//   text-align: center;
-//   font-weight: normal;
-//   // color: #777;
-// }
-//
-// p {
-//   font-size: 1.1em;
-//   line-height: 1.7em;
-// }
-
-// .artist_index{
-//     width: 100%;
-//     height: 300px;
-//     overflow: scroll;
-// }
-//
-//
-// .artist_index_icon{
-//   float: left;
-//   margin: 10px;
-// }
-
 .ui cards{
   overflow: hidden;
 
@@ -90,7 +53,7 @@ textarea {
   float: left;
   margin-right: 10px;
   font-size: 2.0em;
-  color: #fff;
+  color: #000;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
@@ -98,24 +61,9 @@ textarea {
 }
 
 #logo:hover {
-  color: #fff;
+  color: #000;
   text-decoration: underline;
 }
-
-/* ヘッダーの固定 */
-header{
-  border-top:3px solid #000;
-}
-.navbar-fixed-top{
-    position: fixed;            /* ヘッダーの固定 */
-    top: 0px;                   /* 位置(上0px) */
-    left: 0px;                  /* 位置(右0px) */
-    width: 100%;                /* 横幅100%　*/
-    height: 60px;              /* 縦幅140px */
-    background-color:#000;     /* 背景色(黒) */
-    z-index: 1000;
-}
-
 
 
 /* footer */
@@ -148,28 +96,6 @@ footer ul li {
   float: left;
   margin-left: 15px;
 }
-
-
-// .sidebar_fixed {
-//   position: sticky;
-//   top: 60px;
-//   color: #fff;
-// }
-// .sidebar_content {
-//   margin-bottom: 100px;
-//   color: #fff;
-// }
-
-
-
-/* forms */
-
-// input, textarea, select, .uneditable-input {
-//   border: 1px solid #bbb;
-//   width: 60%;
-//   margin-bottom: 15px;
-//   @include box_sizing;
-// }
 
 input {
   height: auto !important;

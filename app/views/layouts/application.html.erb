@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-with, initial-scale=1.0, minimum-scale=1.0">
     <title><%= yield(:title) %> | Fes App</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'hello_react' %>
 
 
     <%= render 'layouts/shim' %>
@@ -15,21 +17,29 @@
 
   <body>
       <%= render 'layouts/alert' %>
-
+      
+      <div class="pusher">
       <% unless user_signed_in? %>
         <%= render 'layouts/header' %>
         <%= yield %>
-
-      <% else %>
+      <% else %> 
           <%= render 'layouts/sidebar' %>
-
           <div class="ui container">
             <%= render 'layouts/header' %>
             <%= yield %>
           </div>
-
       <% end %>
+
         <%= render 'layouts/footer' unless @skip_footer %>
         <%= debug(params) if Rails.env.development?  unless @skip_footer%>
+    
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js" integrity="sha256-HcON65l89nxNl7vaRECVPe/zNDBzhCcJYBE7O+EcruU=" crossorigin="anonymous"></script>
+    <script>
+      $('#js-sidebar').click(function() {
+        $('.ui.sidebar').sidebar('toggle');
+      });
+    </script>
   </body>
 </html>

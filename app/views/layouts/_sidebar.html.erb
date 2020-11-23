@@ -1,7 +1,5 @@
-<div class="ui right demo vertical sidebar labeled icon menu visible">
-  <br>
-  <br>
-  <br>
+<div class="ui left demo vertical inverted sidebar labeled icon menu">
+
   <a class="item" href="/users/<%= current_user.id %>"><%= current_user.name %>さん
   </a>
 
@@ -27,9 +25,9 @@
     <i class="circular headphones icon"></i>
   <% end %>
 
-  <%# <%= link_to destroy_user_session_path,class: 'item', :method => :delete do %>
-    <!-- <i class="circular sign out alternate icon"></i> -->
-  <%# <% end %>
+  <%= link_to destroy_user_session_path,class: 'item', :method => :delete do %>
+    <i class="circular sign out alternate icon"></i>
+  <% end %>
 
   <%= link_to edit_user_registration_path,class: 'item' do %>
     <i class="circular cogs icon"></i>

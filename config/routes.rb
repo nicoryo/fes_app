@@ -6,24 +6,23 @@ Rails.application.routes.draw do
   get '/show_additionally', to: 'rooms#show_additionally'
   get '/show_follower', to: 'users#show_follower'
 
-  resources :users, only: %i[index show new create destroy edit update] do
-    resources :favs, only: %i[create destroy]
-  end
   root 'users#index'
+  resources :users, only: %i[index show create destroy edit update] do
+    resources :favs, only: %i[create destroy]
+    collection do
+      get 'search'
+    end
+    member do
+      get 'following', 'followers'
+    end
+  end
   resources :messages, only: [:create]
   resources :rooms, only: %i[create show index]
   resources :relationships, only: %i[create destroy]
   resources :favs, only: %i[create destroy]
-  resources :users do
-    collection { get 'search' }
-  end
-  resources :users do
-    member do
-      get :following, :followers
-    end
-  end
   resources :artists, only: %i[index show search new create] do
     resources :favs, only: %i[create destroy]
+    resources :comments, only: %i[create destroy]
   end
   resources :comments, only: %i[index show create destroy]
 

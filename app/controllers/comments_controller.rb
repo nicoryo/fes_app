@@ -4,7 +4,14 @@ def show
 end
 
 def create
-  @comment  = Comment.create!(comment_params)
+  @comment  = Comment.new(comment_params)
+  respond_to do |format|
+    if @comment.save!
+      format.html { redirect_to "/artists/#{@comment.artist_id}" }
+      format.js
+    else
+    end
+  end
 end
 
 def destroy

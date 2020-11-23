@@ -81,4 +81,6 @@ Rails.application.configure do
   config.reload_classes_only_on_change = false
 
   config.action_cable.allowed_request_origins = [%r{http://*}, %r{https://*}]
+
+  config.x.webpacker[:digesting] = true
 end

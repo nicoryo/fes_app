@@ -1,0 +1,10 @@
+ <div role="list" class="ui list">
+    <div role="listitem" class="item">
+      <i aria-hidden="true" class="marker icon"></i>
+      <div class="content">
+        <a class="header"><%= link_to comment.user.name, comment.user %></a>
+        <div class="description"><%= comment.content %>[<%= time_ago_in_words(comment.created_at) %> ago.]
+        </div>
+      </div>
+    </div>
+  </div>

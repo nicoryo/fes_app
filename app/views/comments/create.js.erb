@@ -1,0 +1,5 @@
+console.log("create.js.erbファイルが呼び出されました！");
+console.log("<%= @comment.content %>");
+$(".comment_form").append("<%= j(render partial: 'comments/comment', locals: { comment: @comment }) %>");
+$('.js-form')[0].reset();
+

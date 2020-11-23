@@ -54,8 +54,8 @@
 
       <p></p>
 
-      <div class="ui comments">
-        <% @userFavorites.each do |artist| %>
+      <div class="ui comments"> 
+       <% @userFavorites.each do |artist| %>
           <div class="comment">
             <a class="ui blue image label" href="/artists/<%= artist.id %>">
               <% if artist.icon.nil?%>

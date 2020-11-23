@@ -1,19 +1,8 @@
 
   <% if current_user.already_faved?(@artist) %>
-    <%= form_with(model: current_user.favs.find_by(artist_id: @artist.id), local: true, method: :delete) do |f| %>
-      <%= hidden_field_tag :artist_id, @artist.id %>
-      <%= button_tag  :type => "submit", :class =>"ui animated red button" do %>
-        <div class="visible content">
-          Liked
-        </div>
-        <div class="hidden content">
-          <i　aria-hidden="true"></i>DisLike?
-        </div>
-      <% end %>
-    <% end %>
-  <% else %>
-    <%= form_with(model: current_user.favs.build, local: true) do |f| %>
-      <%= hidden_field_tag :artist_id, @artist.id %>
-      <%= button_tag 'Like'.html_safe, :type => "submit",:class =>"positive ui button" %>
-    <% end %>
+    <div id="fav_form">
+      <%= render 'favs/fav' %>
+    <% else %>
+      <%= render 'favs/unfav' %>
+    </div>
   <% end %>

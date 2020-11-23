@@ -1,0 +1,11 @@
+<%= form_with(model: current_user.favs.find_by(artist_id: @artist.id), remote: true, method: :delete) do |f| %>
+  <%= hidden_field_tag :artist_id, @artist.id %>
+  <%= button_tag  :type => "submit", :class =>"ui animated red button" do %>
+    <div class="visible content">
+      Liked
+    </div>
+    <div class="hidden content">
+      <i　aria-hidden="true"></i>DisLike?
+    </div>
+  <% end %>
+<% end %>

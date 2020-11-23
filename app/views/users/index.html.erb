@@ -27,13 +27,7 @@
           好きなアーティストを登録して
           気の合う友達を見つけよう！！
         </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="ui column grid">
-    <div class="column">
-      <div class="ui raised segment">
+      
         <%= form_with url: users_path, method: :get, local: true do |form| %>
           <div class="ui action input">
             <%= form.text_field :name , class: "ui input focus", placeholder: "Search..." %>
