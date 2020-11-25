@@ -16,7 +16,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :timeoutable
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
-  has_many :artists, dependent: :destroy
   has_many :favs, dependent: :destroy
   has_many :favorite_artists, through: :favs, source: :artist
   has_many :comments, dependent: :destroy
@@ -39,7 +38,6 @@ class User < ApplicationRecord
     unregistrate&.destroy
   end
 
-  # ユーザーをフォローする
   def follow(other_user)
     following << other_user
   end

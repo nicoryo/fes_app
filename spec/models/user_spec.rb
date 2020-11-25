@@ -3,47 +3,31 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  before do
-    @user = FactoryBot.build(:user)
-  end
-
   describe '属性の存在性バリデーション' do
-    let(:user) { User.new(name: 'Ryoga', email: 'example@example.com', sex: '1', introduction: 'hello world') }
+    let(:user) { User.new(params) }
+    context '全ての属性が入力済みの場合' do
+      let(:params) { { name: 'Ryoga', email: 'example@example.com', sex: '1', introduction: 'hello world', password: 'passpass', password_confirmation: 'passpass'} }
+      it 'OKで通ること' do
+        expect(user).to be_valid
+      end
+    end
     context 'nameの値が空の場合' do
+      let(:params) { { name: '', email: 'example@example.com', sex: '1', introduction: 'hello world', password: 'passpass', password_confirmation: 'passpass'} }
       it 'エラーを返すこと' do
-        expect(user.name.nil?).to eq(false)
+        expect(user).to be_invalid
       end
     end
     context 'emailの値が空の場合' do
-      it 'エラーを返すこと' do
-        expect(user.email.nil?).to eq(false)
-      end
-    end
-    context 'sexの値が空の場合' do
-      it 'エラーを返すこと' do
-        expect(user.sex.nil?).to eq(false)
-      end
-    end
-    context 'introductionの値が空の場合' do
-      it 'エラーを返すこと' do
-        expect(user.introduction.nil?).to eq(false)
-      end
-    end
-
-    context 'nameがnillの場合' do
-      it 'failを返す' do
-        @user = FactoryBot.build(:user, name: '')
-        expect(@user).to be_invalid
-      end
-    end
-    context 'emailがnillの場合' do
-      it 'failを返す' do
-        @user = FactoryBot.build(:user, email: '')
-        expect(@user).to be_invalid
+      let(:params) { {name: 'Ryoga', email: '', sex: '1', introduction: 'hello world', password: 'passpass', password_confirmation: 'passpass' } }
+        it 'エラーを返すこと' do
+          expect(user).to be_invalid
       end
     end
   end
 
+  before do
+    @user = FactoryBot.build(:user)
+  end
   describe 'nameとemailの長さの検証に対するテスト' do
     context 'nameが長すぎる時、failを期待する' do
       it 'failになっていない' do
@@ -83,6 +67,29 @@ RSpec.describe User, type: :model do
     it 'passwordが5文字以下ならFalseを返す' do
       @user = FactoryBot.build(:user, password_is: 'a' * 5, password_confirmation_is: 'a' * 5)
       expect(@user).to be_invalid
+    end
+  end
+end
+
+RSpec.describe User, type: :model do
+  xdescribe 'フォロー＆フォロー解除の有効性に対するテスト' do
+    before do 
+      @alice = FactoryBot.create(:alice)
+      @bob   = FactoryBot.create(:bob)
+    end
+    it 'アリスはボブをフォローしていないこと' do
+      expect(@alice.following?(@bob)).to be_invalid
+    end
+    it 'アリスはボブをフォローしていること' do
+      @alice.follow!(@bob)
+      expect(@alice.following?(@bob)).to be_valid
+    end
+    it 'ボブはアリスをフォロワーにいること' do
+      expect(@bob.followers.include?(@alice)).to be_valid
+    end
+    it 'アリスはボブをフォロー解除していること' do
+      @alice.unfollow!(@bob)
+      expect(@alice.following?(@bob)).to be_invalid
     end
   end
 end

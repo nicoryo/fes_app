@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     name { 'Alice#1' }
-    email { 'alice@example.co.jp' }
+    email { 'alice1@example.co.jp' }
 
     transient do
       password_is { '' }
@@ -11,9 +11,19 @@ FactoryBot.define do
     password_confirmation { password_confirmation_is.to_s }
   end
 
+
+  factory :bob, class: User do
+    name { 'Bob' }
+    email { 'bob@example.co.jp' }
+    password { 'password' }
+    password_confirmation { 'password' }
+    sex { '1' }
+    birthday { '1991.1.1' }
+    introduction { 'Hello my name is BobBob' }
+  end
   factory :alice, class: User do
-    name { 'Alice#2' }
-    email { 'alice2@example.co.jp' }
+    name { 'Alice' }
+    email { 'alice@example.co.jp' }
     password { 'password' }
     password_confirmation { 'password' }
     sex { '2' }
